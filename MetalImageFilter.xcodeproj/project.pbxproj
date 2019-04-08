@@ -9,21 +9,41 @@
 /* Begin PBXBuildFile section */
 		ECA813D5225B98AA00AFBE4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813D4225B98AA00AFBE4E /* AppDelegate.swift */; };
 		ECA813D7225B98AA00AFBE4E /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813D6225B98AA00AFBE4E /* MasterViewController.swift */; };
-		ECA813D9225B98AA00AFBE4E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813D8225B98AA00AFBE4E /* DetailViewController.swift */; };
 		ECA813DC225B98AA00AFBE4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECA813DA225B98AA00AFBE4E /* Main.storyboard */; };
 		ECA813DE225B98AB00AFBE4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECA813DD225B98AB00AFBE4E /* Assets.xcassets */; };
 		ECA813E1225B98AB00AFBE4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECA813DF225B98AB00AFBE4E /* LaunchScreen.storyboard */; };
+		ECA813F2225B9C3800AFBE4E /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = ECA813E8225B9C3700AFBE4E /* Shaders.metal */; };
+		ECA813F3225B9C3800AFBE4E /* GRotationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813E9225B9C3700AFBE4E /* GRotationFilter.swift */; };
+		ECA813F4225B9C3800AFBE4E /* GZLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813EA225B9C3700AFBE4E /* GZLog.swift */; };
+		ECA813F5225B9C3800AFBE4E /* GGaussianBlur2DFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813EB225B9C3700AFBE4E /* GGaussianBlur2DFilter.swift */; };
+		ECA813F6225B9C3800AFBE4E /* GContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813EC225B9C3700AFBE4E /* GContext.swift */; };
+		ECA813F7225B9C3800AFBE4E /* MainBundleTextureProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813ED225B9C3700AFBE4E /* MainBundleTextureProvider.swift */; };
+		ECA813F8225B9C3800AFBE4E /* GTextureProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813EE225B9C3800AFBE4E /* GTextureProvider.swift */; };
+		ECA813F9225B9C3800AFBE4E /* GImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813EF225B9C3800AFBE4E /* GImageFilter.swift */; };
+		ECA813FA225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813F0225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift */; };
+		ECA813FB225B9C3800AFBE4E /* UIImage-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813F1225B9C3800AFBE4E /* UIImage-extension.swift */; };
+		ECA813FD225B9CD500AFBE4E /* ImageFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813FC225B9CD500AFBE4E /* ImageFilterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		ECA813D1225B98AA00AFBE4E /* MetalImageFilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalImageFilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECA813D4225B98AA00AFBE4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECA813D6225B98AA00AFBE4E /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		ECA813D8225B98AA00AFBE4E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		ECA813DB225B98AA00AFBE4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ECA813DD225B98AB00AFBE4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ECA813E0225B98AB00AFBE4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ECA813E2225B98AB00AFBE4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ECA813E8225B9C3700AFBE4E /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		ECA813E9225B9C3700AFBE4E /* GRotationFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GRotationFilter.swift; sourceTree = "<group>"; };
+		ECA813EA225B9C3700AFBE4E /* GZLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GZLog.swift; sourceTree = "<group>"; };
+		ECA813EB225B9C3700AFBE4E /* GGaussianBlur2DFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGaussianBlur2DFilter.swift; sourceTree = "<group>"; };
+		ECA813EC225B9C3700AFBE4E /* GContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GContext.swift; sourceTree = "<group>"; };
+		ECA813ED225B9C3700AFBE4E /* MainBundleTextureProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBundleTextureProvider.swift; sourceTree = "<group>"; };
+		ECA813EE225B9C3800AFBE4E /* GTextureProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTextureProvider.swift; sourceTree = "<group>"; };
+		ECA813EF225B9C3800AFBE4E /* GImageFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GImageFilter.swift; sourceTree = "<group>"; };
+		ECA813F0225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSaturationAdjustmentFilter.swift; sourceTree = "<group>"; };
+		ECA813F1225B9C3800AFBE4E /* UIImage-extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage-extension.swift"; sourceTree = "<group>"; };
+		ECA813FC225B9CD500AFBE4E /* ImageFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFilterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +76,19 @@
 		ECA813D3225B98AA00AFBE4E /* MetalImageFilter */ = {
 			isa = PBXGroup;
 			children = (
+				ECA813FC225B9CD500AFBE4E /* ImageFilterViewController.swift */,
+				ECA813EC225B9C3700AFBE4E /* GContext.swift */,
+				ECA813EB225B9C3700AFBE4E /* GGaussianBlur2DFilter.swift */,
+				ECA813EF225B9C3800AFBE4E /* GImageFilter.swift */,
+				ECA813E9225B9C3700AFBE4E /* GRotationFilter.swift */,
+				ECA813F0225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift */,
+				ECA813EE225B9C3800AFBE4E /* GTextureProvider.swift */,
+				ECA813EA225B9C3700AFBE4E /* GZLog.swift */,
+				ECA813ED225B9C3700AFBE4E /* MainBundleTextureProvider.swift */,
+				ECA813E8225B9C3700AFBE4E /* Shaders.metal */,
+				ECA813F1225B9C3800AFBE4E /* UIImage-extension.swift */,
 				ECA813D4225B98AA00AFBE4E /* AppDelegate.swift */,
 				ECA813D6225B98AA00AFBE4E /* MasterViewController.swift */,
-				ECA813D8225B98AA00AFBE4E /* DetailViewController.swift */,
 				ECA813DA225B98AA00AFBE4E /* Main.storyboard */,
 				ECA813DD225B98AB00AFBE4E /* Assets.xcassets */,
 				ECA813DF225B98AB00AFBE4E /* LaunchScreen.storyboard */,
@@ -138,8 +168,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECA813D9225B98AA00AFBE4E /* DetailViewController.swift in Sources */,
+				ECA813FD225B9CD500AFBE4E /* ImageFilterViewController.swift in Sources */,
+				ECA813F7225B9C3800AFBE4E /* MainBundleTextureProvider.swift in Sources */,
+				ECA813F5225B9C3800AFBE4E /* GGaussianBlur2DFilter.swift in Sources */,
+				ECA813FA225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift in Sources */,
+				ECA813F2225B9C3800AFBE4E /* Shaders.metal in Sources */,
+				ECA813FB225B9C3800AFBE4E /* UIImage-extension.swift in Sources */,
+				ECA813F4225B9C3800AFBE4E /* GZLog.swift in Sources */,
+				ECA813F3225B9C3800AFBE4E /* GRotationFilter.swift in Sources */,
+				ECA813F6225B9C3800AFBE4E /* GContext.swift in Sources */,
 				ECA813D7225B98AA00AFBE4E /* MasterViewController.swift in Sources */,
+				ECA813F8225B9C3800AFBE4E /* GTextureProvider.swift in Sources */,
+				ECA813F9225B9C3800AFBE4E /* GImageFilter.swift in Sources */,
 				ECA813D5225B98AA00AFBE4E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
