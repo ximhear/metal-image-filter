@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC33CAC0225D00E800E15C44 /* GColorGBRFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC33CABF225D00E800E15C44 /* GColorGBRFilter.swift */; };
 		ECA813D5225B98AA00AFBE4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813D4225B98AA00AFBE4E /* AppDelegate.swift */; };
 		ECA813D7225B98AA00AFBE4E /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813D6225B98AA00AFBE4E /* MasterViewController.swift */; };
 		ECA813DC225B98AA00AFBE4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECA813DA225B98AA00AFBE4E /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EC33CABF225D00E800E15C44 /* GColorGBRFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GColorGBRFilter.swift; sourceTree = "<group>"; };
 		ECA813D1225B98AA00AFBE4E /* MetalImageFilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalImageFilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECA813D4225B98AA00AFBE4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECA813D6225B98AA00AFBE4E /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				ECA813DD225B98AB00AFBE4E /* Assets.xcassets */,
 				ECA813DF225B98AB00AFBE4E /* LaunchScreen.storyboard */,
 				ECA813E2225B98AB00AFBE4E /* Info.plist */,
+				EC33CABF225D00E800E15C44 /* GColorGBRFilter.swift */,
 			);
 			path = MetalImageFilter;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 				ECA813FD225B9CD500AFBE4E /* ImageFilterViewController.swift in Sources */,
 				ECA813F7225B9C3800AFBE4E /* MainBundleTextureProvider.swift in Sources */,
 				ECA813F5225B9C3800AFBE4E /* GGaussianBlur2DFilter.swift in Sources */,
+				EC33CAC0225D00E800E15C44 /* GColorGBRFilter.swift in Sources */,
 				ECA813FA225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift in Sources */,
 				ECA813F2225B9C3800AFBE4E /* Shaders.metal in Sources */,
 				ECA813FB225B9C3800AFBE4E /* UIImage-extension.swift in Sources */,

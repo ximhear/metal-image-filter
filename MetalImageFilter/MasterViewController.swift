@@ -8,19 +8,41 @@
 
 import UIKit
 
+enum GImageFilterType {
+    case gaussianBlur2D
+    case saturationAdjustment
+    case rotation
+    case colorGBR
+    
+    var name: String {
+        switch self {
+        case .gaussianBlur2D:
+            return "gaussianBlur2D"
+        case .saturationAdjustment:
+            return "saturationAdjustment"
+        case .rotation:
+            return "rotation"
+        case .colorGBR:
+            return "colorGBR"
+        }
+    }
+}
+
 class MasterViewController: UITableViewController {
 
     var detailViewController: ImageFilterViewController? = nil
-    var objects = [Any]()
+    var objects = [GImageFilterType]()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        objects.append(.gaussianBlur2D)
+        objects.append(.saturationAdjustment)
+        objects.append(.rotation)
+        objects.append(.colorGBR)
         // Do any additional setup after loading the view.
-        navigationItem.leftBarButtonItem = editButtonItem
 
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ImageFilterViewController
@@ -32,20 +54,14 @@ class MasterViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
 
-    @objc
-    func insertNewObject(_ sender: Any) {
-        objects.insert(NSDate(), at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
-    }
-
     // MARK: - Segues
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] as! NSDate
+                let type = objects[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! ImageFilterViewController
+                controller.filterType = type
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -65,8 +81,8 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        let object = objects[indexPath.row] as! NSDate
-        cell.textLabel!.text = object.description
+        let object = objects[indexPath.row]
+        cell.textLabel!.text = object.name
         return cell
     }
 

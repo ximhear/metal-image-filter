@@ -19,6 +19,8 @@ class ImageFilterViewController: UIViewController {
     var desaturateFilter: GSaturationAdjustmentFilter?
     var blurFilter: GGaussianBlur2DFilter?
     var rotationFilter: GRotationFilter?
+    var gbrFilter: GColorGBRFilter?
+    var filterType: GImageFilterType = .colorGBR
     
     var renderingQueue: DispatchQueue?
     var jobIndex: UInt = 0
@@ -48,15 +50,19 @@ class ImageFilterViewController: UIViewController {
         self.context = GContext()
         
         self.imageProvider = MainBundleTextureProvider.init(imageName: "autumn", context: self.context!)
+
         self.rotationFilter = GRotationFilter.init(context: self.context!)
         self.rotationFilter?.provider = self.imageProvider!
         
 
         self.desaturateFilter = GSaturationAdjustmentFilter.init(saturationFactor: self.saturationSlider.value, context: self.context!)
-        self.desaturateFilter?.provider = self.rotationFilter
+        self.desaturateFilter?.provider = self.imageProvider
         
         self.blurFilter = GGaussianBlur2DFilter.init(radius: self.blurRadiusSlider.value, context: self.context!)
-        self.blurFilter?.provider = self.desaturateFilter
+        self.blurFilter?.provider = self.imageProvider
+        
+        self.gbrFilter = GColorGBRFilter(context: self.context!)
+        self.gbrFilter?.provider = self.imageProvider
     }
     
     func updateImage() {
@@ -69,14 +75,28 @@ class ImageFilterViewController: UIViewController {
         let saturation: Float = self.saturationSlider.value
         
         renderingQueue?.async {[weak self] in
+            guard let welf = self else {
+                return
+            }
             if currentJobIndex != self?.jobIndex {
                 return
             }
             
-            self?.blurFilter?.radius = blurRadius
-            self?.desaturateFilter?.saturationFactor = saturation
+            let filter: GImageFilter?
+            switch welf.filterType {
+            case .gaussianBlur2D:
+                self?.blurFilter?.radius = blurRadius
+                filter = self?.blurFilter
+            case .saturationAdjustment:
+                self?.desaturateFilter?.saturationFactor = saturation
+                filter = self?.desaturateFilter
+            case .rotation:
+                filter = self?.rotationFilter
+            case .colorGBR:
+                filter = self?.gbrFilter
+            }
             
-            let texture = self?.blurFilter?.texture
+            let texture = filter?.texture
             let image = UIImage.init(texture: texture)
             
             DispatchQueue.main.async {[weak self] in
