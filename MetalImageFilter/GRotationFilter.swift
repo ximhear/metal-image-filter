@@ -9,9 +9,40 @@
 import Foundation
 import Metal
 
+struct RotationUniforms {
+    var width: Float
+    var height: Float
+    var factor: Float
+}
+
 class GRotationFilter: GImageFilter {
+
+    var _factor: Float = 0
+    var factor: Float {
+        get {
+            return _factor
+        }
+        set {
+            self.isDirty = true
+            _factor = newValue
+        }
+    }
     
+    var uniforms: UnsafeMutablePointer<RotationUniforms>
+
     init?(context: GContext) {
+        
+        guard let buffer = context.device.makeBuffer(length: MemoryLayout<RotationUniforms>.size, options: [MTLResourceOptions.init(rawValue: 0)]) else { return nil }
+        uniforms = UnsafeMutableRawPointer(buffer.contents()).bindMemory(to:RotationUniforms.self, capacity:1)
         super.init(functionName: "rotation_around_center", context: context)
+        uniformBuffer = buffer
+    }
+    
+    override func configureArgumentTable(commandEncoder: MTLComputeCommandEncoder) {
+        
+        uniforms[0].width = Float(self.provider.texture.width)
+        uniforms[0].height = Float(self.provider.texture.height)
+        uniforms[0].factor = _factor
+        commandEncoder.setBuffer(self.uniformBuffer, offset: 0, index: 0)
     }
 }

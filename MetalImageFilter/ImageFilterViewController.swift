@@ -29,6 +29,14 @@ class ImageFilterViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.renderingQueue = DispatchQueue.init(label: "Rendering")
         
+        switch filterType {
+        case .rotation:
+            self.saturationSlider.maximumValue = 1
+            self.saturationSlider.minimumValue = 0
+        default:
+            break
+        }
+        
         buildFilterGraph()
         updateImage()
     }
@@ -91,6 +99,7 @@ class ImageFilterViewController: UIViewController {
                 self?.desaturateFilter?.saturationFactor = saturation
                 filter = self?.desaturateFilter
             case .rotation:
+                self?.rotationFilter?.factor = saturation
                 filter = self?.rotationFilter
             case .colorGBR:
                 filter = self?.gbrFilter
