@@ -77,11 +77,16 @@ kernel void rotation_around_center(texture2d<float, access::read> inTexture [[te
     }
 }
 
+struct RGBUniforms {
+    float4x4 rotation;
+};
+
 kernel void gbr(texture2d<float, access::read> inTexture [[texture(0)]],
-                                   texture2d<float, access::write> outTexture [[texture(1)]],
-                                   uint2 gid [[thread_position_in_grid]])
+                texture2d<float, access::write> outTexture [[texture(1)]],
+                constant RGBUniforms &uniforms [[buffer(0)]],
+                uint2 gid [[thread_position_in_grid]])
 {
     float4 inColor = inTexture.read(gid);
-    float4 outColor = float4(inColor.grb, 1);
+    float4 outColor =  uniforms.rotation * float4(inColor.rgb, 1);
     outTexture.write(outColor, gid);
 }

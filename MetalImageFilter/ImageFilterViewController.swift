@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import simd
 
 class ImageFilterViewController: UIViewController {
 
@@ -30,9 +31,12 @@ class ImageFilterViewController: UIViewController {
         self.renderingQueue = DispatchQueue.init(label: "Rendering")
         
         switch filterType {
-        case .rotation:
-            self.saturationSlider.maximumValue = 1
+        case .colorGBR:
             self.saturationSlider.minimumValue = 0
+            self.saturationSlider.maximumValue = 360
+        case .rotation:
+            self.saturationSlider.minimumValue = 0
+            self.saturationSlider.maximumValue = 1
         default:
             break
         }
@@ -102,6 +106,7 @@ class ImageFilterViewController: UIViewController {
                 self?.rotationFilter?.factor = saturation
                 filter = self?.rotationFilter
             case .colorGBR:
+                self?.gbrFilter?.rotation = saturation
                 filter = self?.gbrFilter
             }
             
