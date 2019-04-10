@@ -12,7 +12,6 @@ import simd
 class ImageFilterViewController: UIViewController {
 
     @IBOutlet weak var imageView:  UIImageView!
-    @IBOutlet weak var blurRadiusSlider:  UISlider!
     @IBOutlet weak var saturationSlider:  UISlider!
     
     var context: GContext?
@@ -31,14 +30,20 @@ class ImageFilterViewController: UIViewController {
         self.renderingQueue = DispatchQueue.init(label: "Rendering")
         
         switch filterType {
+        case .gaussianBlur2D:
+            self.saturationSlider.value = 1
+            self.saturationSlider.minimumValue = 1
+            self.saturationSlider.maximumValue = 8
+        case .saturationAdjustment:
+            self.saturationSlider.value = 0
+            self.saturationSlider.minimumValue = 0
+            self.saturationSlider.maximumValue = 1
         case .colorGBR:
             self.saturationSlider.minimumValue = 0
             self.saturationSlider.maximumValue = 360
         case .rotation:
             self.saturationSlider.minimumValue = 0
             self.saturationSlider.maximumValue = 1
-        default:
-            break
         }
         
         buildFilterGraph()
@@ -70,7 +75,7 @@ class ImageFilterViewController: UIViewController {
         self.desaturateFilter = GSaturationAdjustmentFilter.init(saturationFactor: self.saturationSlider.value, context: self.context!)
         self.desaturateFilter?.provider = self.imageProvider
         
-        self.blurFilter = GGaussianBlur2DFilter.init(radius: self.blurRadiusSlider.value, context: self.context!)
+        self.blurFilter = GGaussianBlur2DFilter.init(radius: self.saturationSlider.value, context: self.context!)
         self.blurFilter?.provider = self.imageProvider
         
         self.gbrFilter = GColorGBRFilter(context: self.context!)
@@ -83,7 +88,6 @@ class ImageFilterViewController: UIViewController {
         
         // Grab these values while we're still on the main thread, since we could
         // conceivably get incomplete values by reading them in the background.
-        let blurRadius: Float = self.blurRadiusSlider.value
         let saturation: Float = self.saturationSlider.value
         
         renderingQueue?.async {[weak self] in
@@ -97,7 +101,7 @@ class ImageFilterViewController: UIViewController {
             let filter: GImageFilter?
             switch welf.filterType {
             case .gaussianBlur2D:
-                self?.blurFilter?.radius = blurRadius
+                self?.blurFilter?.radius = saturation
                 filter = self?.blurFilter
             case .saturationAdjustment:
                 self?.desaturateFilter?.saturationFactor = saturation

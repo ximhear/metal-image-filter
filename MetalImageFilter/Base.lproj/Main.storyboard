@@ -117,26 +117,14 @@
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLz-mo-5nz" userLabel="Control Container View">
                                 <rect key="frame" x="57" y="758" width="300" height="84"/>
                                 <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="8" translatesAutoresizingMaskIntoConstraints="NO" id="Z9X-Tb-Adv">
-                                        <rect key="frame" x="97" y="8" width="197" height="31"/>
-                                        <connections>
-                                            <action selector="blurChanged:" destination="rS4-53-sRs" eventType="valueChanged" id="8el-ig-Qkq"/>
-                                        </connections>
-                                    </slider>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Blur Radius" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YQW-B0-1IY">
-                                        <rect key="frame" x="8" y="14.5" width="79" height="17"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="bkF-ci-Qt9">
-                                        <rect key="frame" x="97" y="46" width="197" height="31"/>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="bkF-ci-Qt9">
+                                        <rect key="frame" x="90.5" y="8" width="203.5" height="69"/>
                                         <connections>
                                             <action selector="saturationChanged:" destination="rS4-53-sRs" eventType="valueChanged" id="ct7-Qb-Af4"/>
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Saturation" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUs-Kp-hct">
-                                        <rect key="frame" x="8" y="52.5" width="79" height="17"/>
+                                        <rect key="frame" x="8" y="33.5" width="72.5" height="17"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -145,20 +133,13 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.51000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="bkF-ci-Qt9" secondAttribute="bottom" constant="8" id="1On-a4-syy"/>
-                                    <constraint firstItem="bkF-ci-Qt9" firstAttribute="top" secondItem="Z9X-Tb-Adv" secondAttribute="bottom" constant="8" id="6Dr-gW-o4E"/>
-                                    <constraint firstAttribute="trailing" secondItem="Z9X-Tb-Adv" secondAttribute="trailing" constant="8" id="7GO-p3-Haf"/>
                                     <constraint firstAttribute="trailing" secondItem="bkF-ci-Qt9" secondAttribute="trailing" constant="8" id="Me2-uQ-fdG"/>
                                     <constraint firstItem="hUs-Kp-hct" firstAttribute="leading" secondItem="YLz-mo-5nz" secondAttribute="leading" constant="8" id="OmO-ud-Cx5"/>
-                                    <constraint firstItem="hUs-Kp-hct" firstAttribute="leading" secondItem="YQW-B0-1IY" secondAttribute="leading" id="Q0H-OI-Q78"/>
                                     <constraint firstItem="hUs-Kp-hct" firstAttribute="centerY" secondItem="bkF-ci-Qt9" secondAttribute="centerY" id="Rkb-fe-7Cz"/>
                                     <constraint firstItem="bkF-ci-Qt9" firstAttribute="leading" secondItem="hUs-Kp-hct" secondAttribute="trailing" constant="12" id="WJD-zl-7HB"/>
                                     <constraint firstAttribute="height" constant="84" id="bQZ-N7-kbv"/>
-                                    <constraint firstItem="YQW-B0-1IY" firstAttribute="leading" secondItem="YLz-mo-5nz" secondAttribute="leading" constant="8" id="deh-mx-q2m"/>
-                                    <constraint firstItem="YQW-B0-1IY" firstAttribute="centerY" secondItem="Z9X-Tb-Adv" secondAttribute="centerY" id="efg-eA-cWu"/>
+                                    <constraint firstItem="bkF-ci-Qt9" firstAttribute="top" secondItem="YLz-mo-5nz" secondAttribute="top" constant="8" id="g9f-SE-Buq"/>
                                     <constraint firstAttribute="width" constant="300" id="ncj-0W-H1U"/>
-                                    <constraint firstItem="Z9X-Tb-Adv" firstAttribute="leading" secondItem="YQW-B0-1IY" secondAttribute="trailing" constant="12" id="prK-Wv-9iN"/>
-                                    <constraint firstItem="Z9X-Tb-Adv" firstAttribute="top" secondItem="YLz-mo-5nz" secondAttribute="top" constant="8" id="uZD-fd-z5e"/>
-                                    <constraint firstItem="hUs-Kp-hct" firstAttribute="width" secondItem="YQW-B0-1IY" secondAttribute="width" id="wgI-XG-eeZ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -176,7 +157,6 @@
                     <navigationItem key="navigationItem" id="sD6-5I-FA6"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="blurRadiusSlider" destination="Z9X-Tb-Adv" id="d8W-Fg-9cc"/>
                         <outlet property="imageView" destination="kLI-bz-Vm7" id="PrI-fH-bmi"/>
                         <outlet property="saturationSlider" destination="bkF-ci-Qt9" id="Ofb-Fc-SNu"/>
                     </connections>
