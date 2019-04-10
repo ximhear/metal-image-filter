@@ -118,13 +118,13 @@
                                 <rect key="frame" x="57" y="758" width="300" height="84"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="bkF-ci-Qt9">
-                                        <rect key="frame" x="90.5" y="8" width="203.5" height="69"/>
+                                        <rect key="frame" x="56.5" y="8" width="237.5" height="69"/>
                                         <connections>
                                             <action selector="saturationChanged:" destination="rS4-53-sRs" eventType="valueChanged" id="ct7-Qb-Af4"/>
                                         </connections>
                                     </slider>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Saturation" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUs-Kp-hct">
-                                        <rect key="frame" x="8" y="33.5" width="72.5" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Value" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUs-Kp-hct">
+                                        <rect key="frame" x="8" y="33.5" width="38.5" height="17"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
