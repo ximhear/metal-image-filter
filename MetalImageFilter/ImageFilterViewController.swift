@@ -35,7 +35,7 @@ class ImageFilterViewController: UIViewController {
             self.saturationSlider.minimumValue = 1
             self.saturationSlider.maximumValue = 8
         case .saturationAdjustment:
-            self.saturationSlider.value = 0
+            self.saturationSlider.value = 1
             self.saturationSlider.minimumValue = 0
             self.saturationSlider.maximumValue = 1
         case .colorGBR:
