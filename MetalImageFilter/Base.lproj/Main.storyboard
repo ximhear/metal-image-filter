@@ -157,6 +157,7 @@
                     <navigationItem key="navigationItem" id="sD6-5I-FA6"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="containerView" destination="YLz-mo-5nz" id="YjD-LA-mKt"/>
                         <outlet property="imageView" destination="kLI-bz-Vm7" id="PrI-fH-bmi"/>
                         <outlet property="saturationSlider" destination="bkF-ci-Qt9" id="Ofb-Fc-SNu"/>
                     </connections>

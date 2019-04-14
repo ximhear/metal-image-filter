@@ -13,6 +13,7 @@ class ImageFilterViewController: UIViewController {
 
     @IBOutlet weak var imageView:  UIImageView!
     @IBOutlet weak var saturationSlider:  UISlider!
+    @IBOutlet weak var containerView: UIView!
     
     var context: GContext?
     var imageProvider: GTextureProvider?
@@ -46,9 +47,9 @@ class ImageFilterViewController: UIViewController {
             self.saturationSlider.minimumValue = 0
             self.saturationSlider.maximumValue = 1
         case .sepia:
-            self.saturationSlider.minimumValue = 0
-            self.saturationSlider.maximumValue = 1
+            containerView.isHidden = true
         }
+        self.title = filterType.name
         
         buildFilterGraph()
         updateImage()
