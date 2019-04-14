@@ -90,3 +90,16 @@ kernel void gbr(texture2d<float, access::read> inTexture [[texture(0)]],
     float4 outColor =  uniforms.rotation * float4(inColor.rgb, 1);
     outTexture.write(outColor, gid);
 }
+
+kernel void sepia(texture2d<float, access::read> inTexture [[texture(0)]],
+                texture2d<float, access::write> outTexture [[texture(1)]],
+                uint2 gid [[thread_position_in_grid]])
+{
+    float4 inColor = inTexture.read(gid);
+    
+    float r = dot(inColor.rgb, float3(0.393, 0.769, 0.189));
+    float g = dot(inColor.rgb, float3(0.349, 0.686, 0.168));
+    float b = dot(inColor.rgb, float3(0.272, 0.534, 0.131));
+    float4 outColor(r > 1 ? 1 : r, g > 1 ? 1 : g, b > 1 ? 1 : b, 1.0);
+    outTexture.write(outColor, gid);
+}

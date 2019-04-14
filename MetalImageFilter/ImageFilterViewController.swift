@@ -20,6 +20,7 @@ class ImageFilterViewController: UIViewController {
     var blurFilter: GGaussianBlur2DFilter?
     var rotationFilter: GRotationFilter?
     var gbrFilter: GColorGBRFilter?
+    var sepiaFilter: GSepiaFilter?
     var filterType: GImageFilterType = .colorGBR
     
     var renderingQueue: DispatchQueue?
@@ -42,6 +43,9 @@ class ImageFilterViewController: UIViewController {
             self.saturationSlider.minimumValue = 0
             self.saturationSlider.maximumValue = 360
         case .rotation:
+            self.saturationSlider.minimumValue = 0
+            self.saturationSlider.maximumValue = 1
+        case .sepia:
             self.saturationSlider.minimumValue = 0
             self.saturationSlider.maximumValue = 1
         }
@@ -80,6 +84,9 @@ class ImageFilterViewController: UIViewController {
         
         self.gbrFilter = GColorGBRFilter(context: self.context!)
         self.gbrFilter?.provider = self.imageProvider
+        
+        self.sepiaFilter = GSepiaFilter(context: self.context!)
+        self.sepiaFilter?.provider = self.imageProvider
     }
     
     func updateImage() {
@@ -112,6 +119,8 @@ class ImageFilterViewController: UIViewController {
             case .colorGBR:
                 self?.gbrFilter?.rotation = saturation
                 filter = self?.gbrFilter
+            case .sepia:
+                filter = self?.sepiaFilter
             }
             
             let texture = filter?.texture

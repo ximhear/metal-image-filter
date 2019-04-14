@@ -8,26 +8,6 @@
 
 import UIKit
 
-enum GImageFilterType {
-    case gaussianBlur2D
-    case saturationAdjustment
-    case rotation
-    case colorGBR
-    
-    var name: String {
-        switch self {
-        case .gaussianBlur2D:
-            return "gaussianBlur2D"
-        case .saturationAdjustment:
-            return "saturationAdjustment"
-        case .rotation:
-            return "rotation"
-        case .colorGBR:
-            return "colorGBR"
-        }
-    }
-}
-
 class MasterViewController: UITableViewController {
 
     var detailViewController: ImageFilterViewController? = nil
@@ -41,6 +21,7 @@ class MasterViewController: UITableViewController {
         objects.append(.saturationAdjustment)
         objects.append(.rotation)
         objects.append(.colorGBR)
+        objects.append(.sepia)
         // Do any additional setup after loading the view.
 
         if let split = splitViewController {
