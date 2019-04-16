@@ -22,6 +22,7 @@ class ImageFilterViewController: UIViewController {
     var rotationFilter: GRotationFilter?
     var gbrFilter: GColorGBRFilter?
     var sepiaFilter: GSepiaFilter?
+    var pixellationFilter: GPixellationFilter?
     var filterType: GImageFilterType = .colorGBR
     
     var renderingQueue: DispatchQueue?
@@ -48,6 +49,10 @@ class ImageFilterViewController: UIViewController {
             self.saturationSlider.maximumValue = 1
         case .sepia:
             containerView.isHidden = true
+        case .pixellation:
+            self.saturationSlider.value = 1
+            self.saturationSlider.minimumValue = 1
+            self.saturationSlider.maximumValue = 300
         }
         self.title = filterType.name
         
@@ -88,6 +93,9 @@ class ImageFilterViewController: UIViewController {
         
         self.sepiaFilter = GSepiaFilter(context: self.context!)
         self.sepiaFilter?.provider = self.imageProvider
+        
+        self.pixellationFilter = GPixellationFilter(context: self.context!)
+        self.pixellationFilter?.provider = self.imageProvider
     }
     
     func updateImage() {
@@ -122,6 +130,9 @@ class ImageFilterViewController: UIViewController {
                 filter = self?.gbrFilter
             case .sepia:
                 filter = self?.sepiaFilter
+            case .pixellation:
+                self?.pixellationFilter?.blockWidth = Int32(saturation)
+                filter = self?.pixellationFilter
             }
             
             let texture = filter?.texture

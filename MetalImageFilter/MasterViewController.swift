@@ -22,6 +22,7 @@ class MasterViewController: UITableViewController {
         objects.append(.rotation)
         objects.append(.colorGBR)
         objects.append(.sepia)
+        objects.append(.pixellation)
         // Do any additional setup after loading the view.
 
         if let split = splitViewController {

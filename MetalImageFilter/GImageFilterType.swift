@@ -14,6 +14,7 @@ enum GImageFilterType {
     case rotation
     case colorGBR
     case sepia
+    case pixellation
     
     var name: String {
         switch self {
@@ -27,6 +28,8 @@ enum GImageFilterType {
             return "colorGBR"
         case .sepia:
             return "sepia"
+        case .pixellation:
+            return "pixellation"
         }
     }
 }

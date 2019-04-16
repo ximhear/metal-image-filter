@@ -103,3 +103,22 @@ kernel void sepia(texture2d<float, access::read> inTexture [[texture(0)]],
     float4 outColor(r > 1 ? 1 : r, g > 1 ? 1 : g, b > 1 ? 1 : b, 1.0);
     outTexture.write(outColor, gid);
 }
+
+struct PixellationUniforms {
+    int32_t width;
+    int32_t height;
+};
+
+kernel void pixellate(texture2d<float, access::read> inTexture [[texture(0)]],
+                texture2d<float, access::write> outTexture [[texture(1)]],
+                constant PixellationUniforms &uniforms [[buffer(0)]],
+                uint2 gid [[thread_position_in_grid]])
+{
+    uint width = uint(uniforms.width);
+    uint height = uint(uniforms.height);
+    
+    const uint2 pixelGid = uint2((gid.x / width) * width, (gid.y / height) * height);
+    float4 color = inTexture.read(pixelGid);
+    outTexture.write(color, gid);
+}
+
