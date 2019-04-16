@@ -9,7 +9,12 @@
 import Foundation
 import Metal
 
-class GImageFilter: GTextureProvider, GTextureConsumer {
+protocol GFilterValueSetter {
+    
+    func setValue(_ value: Float)
+}
+
+class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
     
     var context: GContext
     var uniformBuffer: MTLBuffer?
@@ -32,6 +37,9 @@ class GImageFilter: GTextureProvider, GTextureConsumer {
     }
     
     func configureArgumentTable(commandEncoder: MTLComputeCommandEncoder) {
+    }
+    
+    func setValue(_ value: Float) {
     }
     
     func applyFilter() {

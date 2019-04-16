@@ -15,14 +15,8 @@ class ImageFilterViewController: UIViewController {
     @IBOutlet weak var saturationSlider:  UISlider!
     @IBOutlet weak var containerView: UIView!
     
-    var context: GContext?
     var imageProvider: GTextureProvider?
-    var desaturateFilter: GSaturationAdjustmentFilter?
-    var blurFilter: GGaussianBlur2DFilter?
-    var rotationFilter: GRotationFilter?
-    var gbrFilter: GColorGBRFilter?
-    var sepiaFilter: GSepiaFilter?
-    var pixellationFilter: GPixellationFilter?
+    var imageFilter: GImageFilter?
     var filterType: GImageFilterType = .colorGBR
     
     var renderingQueue: DispatchQueue?
@@ -74,28 +68,12 @@ class ImageFilterViewController: UIViewController {
     }
     
     func buildFilterGraph() {
-        self.context = GContext()
+        let context = GContext()
         
-        self.imageProvider = MainBundleTextureProvider.init(imageName: "autumn", context: self.context!)
+        self.imageProvider = MainBundleTextureProvider.init(imageName: "autumn", context: context)
 
-        self.rotationFilter = GRotationFilter.init(context: self.context!)
-        self.rotationFilter?.provider = self.imageProvider!
-        
-
-        self.desaturateFilter = GSaturationAdjustmentFilter.init(saturationFactor: self.saturationSlider.value, context: self.context!)
-        self.desaturateFilter?.provider = self.imageProvider
-        
-        self.blurFilter = GGaussianBlur2DFilter.init(radius: self.saturationSlider.value, context: self.context!)
-        self.blurFilter?.provider = self.imageProvider
-        
-        self.gbrFilter = GColorGBRFilter(context: self.context!)
-        self.gbrFilter?.provider = self.imageProvider
-        
-        self.sepiaFilter = GSepiaFilter(context: self.context!)
-        self.sepiaFilter?.provider = self.imageProvider
-        
-        self.pixellationFilter = GPixellationFilter(context: self.context!)
-        self.pixellationFilter?.provider = self.imageProvider
+        self.imageFilter = filterType.createImageFilter(context: context)
+        self.imageFilter?.provider = self.imageProvider!
     }
     
     func updateImage() {
@@ -114,26 +92,8 @@ class ImageFilterViewController: UIViewController {
                 return
             }
             
-            let filter: GImageFilter?
-            switch welf.filterType {
-            case .gaussianBlur2D:
-                self?.blurFilter?.radius = saturation
-                filter = self?.blurFilter
-            case .saturationAdjustment:
-                self?.desaturateFilter?.saturationFactor = saturation
-                filter = self?.desaturateFilter
-            case .rotation:
-                self?.rotationFilter?.factor = saturation
-                filter = self?.rotationFilter
-            case .colorGBR:
-                self?.gbrFilter?.rotation = saturation
-                filter = self?.gbrFilter
-            case .sepia:
-                filter = self?.sepiaFilter
-            case .pixellation:
-                self?.pixellationFilter?.blockWidth = Int32(saturation)
-                filter = self?.pixellationFilter
-            }
+            let filter: GImageFilter? = welf.imageFilter
+            filter?.setValue(saturation)
             
             let texture = filter?.texture
             let image = UIImage.init(texture: texture)

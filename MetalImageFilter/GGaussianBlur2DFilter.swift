@@ -38,9 +38,8 @@ class GGaussianBlur2DFilter : GImageFilter {
     
     var blurWeightTexture: MTLTexture?
 
-    init(radius:Float, context: GContext) {
+    init(context: GContext) {
         super.init(functionName: "gaussian_blur_2d", context: context)
-        self.radius = radius
     }
     
     func generateBlurWeightTexture() {
@@ -96,5 +95,9 @@ class GGaussianBlur2DFilter : GImageFilter {
         }
         
         commandEncoder.setTexture(self.blurWeightTexture!, index: 2)
+    }
+    
+    override func setValue(_ value: Float) {
+        radius = value
     }
 }

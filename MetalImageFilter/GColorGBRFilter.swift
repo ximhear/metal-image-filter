@@ -48,6 +48,10 @@ class GColorGBRFilter: GImageFilter {
         commandEncoder.setBuffer(self.uniformBuffer, offset: 0, index: 0)
     }
     
+    override func setValue(_ value: Float) {
+        rotation = value
+    }
+    
     func matrix4x4_rotation(radians: Float, axis: float3) -> matrix_float4x4 {
         let unitAxis = normalize(axis)
         let ct = cosf(radians)

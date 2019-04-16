@@ -27,11 +27,10 @@ class GSaturationAdjustmentFilter: GImageFilter {
     }
     var uniforms: UnsafeMutablePointer<AdjustSaturationUniforms>
 
-    init?(saturationFactor: Float, context: GContext) {
+    init?(context: GContext) {
         guard let buffer = context.device.makeBuffer(length: MemoryLayout<AdjustSaturationUniforms>.size, options: [MTLResourceOptions.init(rawValue: 0)]) else { return nil }
         uniforms = UnsafeMutableRawPointer(buffer.contents()).bindMemory(to:AdjustSaturationUniforms.self, capacity:1)
         super.init(functionName: "adjust_saturation", context: context)
-        _saturationFactor = saturationFactor
         uniformBuffer = buffer
     }
     
@@ -39,5 +38,9 @@ class GSaturationAdjustmentFilter: GImageFilter {
         
         uniforms[0].saturationFactor = self.saturationFactor
         commandEncoder.setBuffer(self.uniformBuffer, offset: 0, index: 0)
+    }
+
+    override func setValue(_ value: Float) {
+        saturationFactor = value
     }
 }

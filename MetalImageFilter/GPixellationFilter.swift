@@ -44,4 +44,7 @@ class GPixellationFilter: GImageFilter {
         commandEncoder.setBuffer(self.uniformBuffer, offset: 0, index: 0)
     }
     
+    override func setValue(_ value: Float) {
+        blockWidth = Int32(value)
+    }
 }

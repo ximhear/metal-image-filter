@@ -32,5 +32,23 @@ enum GImageFilterType {
             return "pixellation"
         }
     }
+    
+    func createImageFilter(context: GContext) -> GImageFilter? {
+        
+        switch self {
+        case .gaussianBlur2D:
+            return GGaussianBlur2DFilter(context: context)
+        case .saturationAdjustment:
+            return GSaturationAdjustmentFilter(context: context)
+        case .rotation:
+            return GRotationFilter(context: context)
+        case .colorGBR:
+            return GColorGBRFilter(context: context)
+        case .sepia:
+            return GSepiaFilter(context: context)
+        case .pixellation:
+            return GPixellationFilter(context: context)
+        }
+    }
 }
 

@@ -45,4 +45,8 @@ class GRotationFilter: GImageFilter {
         uniforms[0].factor = _factor
         commandEncoder.setBuffer(self.uniformBuffer, offset: 0, index: 0)
     }
+    
+    override func setValue(_ value: Float) {
+        factor = value
+    }
 }
