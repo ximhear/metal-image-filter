@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -30,7 +30,10 @@
 		ECA813FD225B9CD500AFBE4E /* ImageFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813FC225B9CD500AFBE4E /* ImageFilterViewController.swift */; };
 		ECF4E43C226E1BFA00468A0F /* GLuminanceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E43B226E1BFA00468A0F /* GLuminanceFilter.swift */; };
 		ECF4E43E226E205C00468A0F /* GNormalMapFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E43D226E205C00468A0F /* GNormalMapFilter.swift */; };
-		ECF4E440226E2D2200468A0F /* GCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E43F226E2D2200468A0F /* GCameraViewController.swift */; };
+		ECF4E444226E319800468A0F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E441226E319700468A0F /* VideoViewController.swift */; };
+		ECF4E445226E319800468A0F /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E442226E319700468A0F /* PhotoViewController.swift */; };
+		ECF4E446226E319800468A0F /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E443226E319800468A0F /* UIView+Border.swift */; };
+		ECF4E448226E3DA500468A0F /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E447226E3DA500468A0F /* UIImageExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,7 +64,10 @@
 		ECA813FC225B9CD500AFBE4E /* ImageFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFilterViewController.swift; sourceTree = "<group>"; };
 		ECF4E43B226E1BFA00468A0F /* GLuminanceFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLuminanceFilter.swift; sourceTree = "<group>"; };
 		ECF4E43D226E205C00468A0F /* GNormalMapFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GNormalMapFilter.swift; sourceTree = "<group>"; };
-		ECF4E43F226E2D2200468A0F /* GCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCameraViewController.swift; sourceTree = "<group>"; };
+		ECF4E441226E319700468A0F /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		ECF4E442226E319700468A0F /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		ECF4E443226E319800468A0F /* UIView+Border.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Border.swift"; sourceTree = "<group>"; };
+		ECF4E447226E3DA500468A0F /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +111,9 @@
 		ECA813D3225B98AA00AFBE4E /* MetalImageFilter */ = {
 			isa = PBXGroup;
 			children = (
+				ECF4E442226E319700468A0F /* PhotoViewController.swift */,
+				ECF4E443226E319800468A0F /* UIView+Border.swift */,
+				ECF4E441226E319700468A0F /* VideoViewController.swift */,
 				ECA813FC225B9CD500AFBE4E /* ImageFilterViewController.swift */,
 				ECA813EC225B9C3700AFBE4E /* GContext.swift */,
 				ECA813EB225B9C3700AFBE4E /* GGaussianBlur2DFilter.swift */,
@@ -128,7 +137,7 @@
 				EC9EB5F3226627AF004F83FD /* GPixellationFilter.swift */,
 				ECF4E43B226E1BFA00468A0F /* GLuminanceFilter.swift */,
 				ECF4E43D226E205C00468A0F /* GNormalMapFilter.swift */,
-				ECF4E43F226E2D2200468A0F /* GCameraViewController.swift */,
+				ECF4E447226E3DA500468A0F /* UIImageExtension.swift */,
 			);
 			path = MetalImageFilter;
 			sourceTree = "<group>";
@@ -259,12 +268,14 @@
 			files = (
 				ECA813FD225B9CD500AFBE4E /* ImageFilterViewController.swift in Sources */,
 				ECA813F7225B9C3800AFBE4E /* MainBundleTextureProvider.swift in Sources */,
+				ECF4E448226E3DA500468A0F /* UIImageExtension.swift in Sources */,
 				ECA813F5225B9C3800AFBE4E /* GGaussianBlur2DFilter.swift in Sources */,
 				EC33CAC0225D00E800E15C44 /* GColorGBRFilter.swift in Sources */,
+				ECF4E446226E319800468A0F /* UIView+Border.swift in Sources */,
 				ECA813FA225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift in Sources */,
-				ECF4E440226E2D2200468A0F /* GCameraViewController.swift in Sources */,
 				ECA813F2225B9C3800AFBE4E /* Shaders.metal in Sources */,
 				ECA813FB225B9C3800AFBE4E /* UIImage-extension.swift in Sources */,
+				ECF4E444226E319800468A0F /* VideoViewController.swift in Sources */,
 				ECA813F4225B9C3800AFBE4E /* GZLog.swift in Sources */,
 				ECF4E43C226E1BFA00468A0F /* GLuminanceFilter.swift in Sources */,
 				ECA813F3225B9C3800AFBE4E /* GRotationFilter.swift in Sources */,
@@ -277,6 +288,7 @@
 				EC65920B2263AA750088B28E /* GImageFilterType.swift in Sources */,
 				EC9EB5F4226627AF004F83FD /* GPixellationFilter.swift in Sources */,
 				ECA813D5225B98AA00AFBE4E /* AppDelegate.swift in Sources */,
+				ECF4E445226E319800468A0F /* PhotoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

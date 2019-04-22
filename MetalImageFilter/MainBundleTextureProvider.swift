@@ -13,9 +13,8 @@ import Metal
 class MainBundleTextureProvider: GTextureProvider {
     var texture: MTLTexture!
     
-    init(imageName: String, context: GContext) {
-        let image = UIImage.init(named: imageName)
-        texture = self.texture(image: image!, context: context)
+    init(image: UIImage, context: GContext) {
+        texture = self.texture(image: image, context: context)
     }
     
     func texture(image: UIImage, context: GContext) -> MTLTexture {

@@ -12,7 +12,7 @@ class MasterViewController: UITableViewController {
 
     var detailViewController: ImageFilterViewController? = nil
     var objects = [GImageFilterType]()
-
+    var image: UIImage!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +26,16 @@ class MasterViewController: UITableViewController {
         objects.append(.luminance)
         objects.append(.normalMap)
         // Do any additional setup after loading the view.
+        
+        image = UIImage(named: "autumn")
 
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ImageFilterViewController
+            detailViewController?.image = self.image
+            detailViewController?.imageChanged = {[weak self] image in
+                self?.image = image
+            }
         }
     }
 
@@ -46,8 +52,12 @@ class MasterViewController: UITableViewController {
                 let type = objects[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! ImageFilterViewController
                 controller.filterType = type
+                controller.image = self.image
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
+                controller.imageChanged = {[weak self] image in
+                    self?.image = image
+                }
             }
         }
     }

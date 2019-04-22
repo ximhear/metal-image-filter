@@ -18,6 +18,8 @@ class ImageFilterViewController: UIViewController {
     var imageProvider: GTextureProvider?
     var imageFilter: GImageFilter?
     var filterType: GImageFilterType = .colorGBR
+    var imageChanged: (_ image: UIImage) -> Void = {_ in }
+    var image: UIImage!
     
     var renderingQueue: DispatchQueue?
     var jobIndex: UInt = 0
@@ -54,7 +56,7 @@ class ImageFilterViewController: UIViewController {
         }
         self.title = filterType.name
         
-        buildFilterGraph()
+        buildFilterGraph(image: self.image)
         updateImage()
     }
 
@@ -71,10 +73,10 @@ class ImageFilterViewController: UIViewController {
         updateImage()
     }
     
-    func buildFilterGraph() {
+    func buildFilterGraph(image: UIImage) {
         let context = GContext()
         
-        self.imageProvider = MainBundleTextureProvider.init(imageName: "autumn", context: context)
+        self.imageProvider = MainBundleTextureProvider.init(image: image, context: context)
 
         self.imageFilter = filterType.createImageFilter(context: context)
         self.imageFilter?.provider = self.imageProvider!
@@ -115,7 +117,13 @@ class ImageFilterViewController: UIViewController {
     @IBAction func cameraClicked(_ sender: Any) {
         GZLogFunc()
         
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "GCameraViewController") as? GCameraViewController {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "PhotoViewController") as? PhotoViewController {
+            vc.imageCaptured = { [weak self] (image) in
+                self?.imageChanged(image)
+                self?.image = image
+                self?.buildFilterGraph(image: image)
+                self?.updateImage()
+            }
             present(vc, animated: true) {
             }
         }
