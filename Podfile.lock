@@ -1,0 +1,16 @@
+PODS:
+  - CameraKit-iOS (1.2.0)
+
+DEPENDENCIES:
+  - CameraKit-iOS
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CameraKit-iOS
+
+SPEC CHECKSUMS:
+  CameraKit-iOS: 36ebcafb4f6daed21e49d0db540441d081f50a4d
+
+PODFILE CHECKSUM: 70583665859428935e461416f143953bcfd02a89
+
+COCOAPODS: 1.7.0.beta.3

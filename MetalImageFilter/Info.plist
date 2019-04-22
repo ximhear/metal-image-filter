@@ -51,5 +51,16 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <!-- Required for photos and videos -->
+    <key>NSCameraUsageDescription</key>
+    <string>NSCameraUsageDescription</string>
+    
+    <!-- Optional for photos -->
+    <key>NSMicrophoneUsageDescription</key>
+    <string>NSMicrophoneUsageDescription</string>
+    
+    <!-- Optional for the demo app to copy the photos/videos to your photo library -->
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>NSPhotoLibraryAddUsageDescription</string>
 </dict>
 </plist>

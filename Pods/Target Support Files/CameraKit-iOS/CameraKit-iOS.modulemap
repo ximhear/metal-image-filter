@@ -1,0 +1,6 @@
+framework module CameraKit_iOS {
+  umbrella header "CameraKit-iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

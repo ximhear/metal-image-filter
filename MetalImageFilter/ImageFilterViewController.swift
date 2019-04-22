@@ -107,5 +107,18 @@ class ImageFilterViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func albumClicked(_ sender: Any) {
+        GZLogFunc()
+    }
+    
+    @IBAction func cameraClicked(_ sender: Any) {
+        GZLogFunc()
+        
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "GCameraViewController") as? GCameraViewController {
+            present(vc, animated: true) {
+            }
+        }
+    }
 }
 

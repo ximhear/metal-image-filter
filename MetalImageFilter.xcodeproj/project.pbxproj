@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		177B9347D4C18B019397B097 /* Pods_MetalImageFilter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF6CB2E3B56B2D0F51A45C7F /* Pods_MetalImageFilter.framework */; };
 		EC33CAC0225D00E800E15C44 /* GColorGBRFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC33CABF225D00E800E15C44 /* GColorGBRFilter.swift */; };
 		EC65920B2263AA750088B28E /* GImageFilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC65920A2263AA750088B28E /* GImageFilterType.swift */; };
 		EC65920D2263AAD40088B28E /* GSepiaFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC65920C2263AAD40088B28E /* GSepiaFilter.swift */; };
@@ -29,9 +30,13 @@
 		ECA813FD225B9CD500AFBE4E /* ImageFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813FC225B9CD500AFBE4E /* ImageFilterViewController.swift */; };
 		ECF4E43C226E1BFA00468A0F /* GLuminanceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E43B226E1BFA00468A0F /* GLuminanceFilter.swift */; };
 		ECF4E43E226E205C00468A0F /* GNormalMapFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E43D226E205C00468A0F /* GNormalMapFilter.swift */; };
+		ECF4E440226E2D2200468A0F /* GCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E43F226E2D2200468A0F /* GCameraViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		478D40DB178E8D3F453311A5 /* Pods-MetalImageFilter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetalImageFilter.debug.xcconfig"; path = "Target Support Files/Pods-MetalImageFilter/Pods-MetalImageFilter.debug.xcconfig"; sourceTree = "<group>"; };
+		C372C8A5588804A7F10B0D34 /* Pods-MetalImageFilter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetalImageFilter.release.xcconfig"; path = "Target Support Files/Pods-MetalImageFilter/Pods-MetalImageFilter.release.xcconfig"; sourceTree = "<group>"; };
+		DF6CB2E3B56B2D0F51A45C7F /* Pods_MetalImageFilter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MetalImageFilter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC33CABF225D00E800E15C44 /* GColorGBRFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GColorGBRFilter.swift; sourceTree = "<group>"; };
 		EC65920A2263AA750088B28E /* GImageFilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GImageFilterType.swift; sourceTree = "<group>"; };
 		EC65920C2263AAD40088B28E /* GSepiaFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GSepiaFilter.swift; sourceTree = "<group>"; };
@@ -56,6 +61,7 @@
 		ECA813FC225B9CD500AFBE4E /* ImageFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFilterViewController.swift; sourceTree = "<group>"; };
 		ECF4E43B226E1BFA00468A0F /* GLuminanceFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLuminanceFilter.swift; sourceTree = "<group>"; };
 		ECF4E43D226E205C00468A0F /* GNormalMapFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GNormalMapFilter.swift; sourceTree = "<group>"; };
+		ECF4E43F226E2D2200468A0F /* GCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCameraViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,17 +69,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				177B9347D4C18B019397B097 /* Pods_MetalImageFilter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		64CB3CC54C95B0E613FD50C6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DF6CB2E3B56B2D0F51A45C7F /* Pods_MetalImageFilter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		ECA813C8225B98AA00AFBE4E = {
 			isa = PBXGroup;
 			children = (
 				ECA813D3225B98AA00AFBE4E /* MetalImageFilter */,
 				ECA813D2225B98AA00AFBE4E /* Products */,
+				FE36E3575A13E1D75FE61F5C /* Pods */,
+				64CB3CC54C95B0E613FD50C6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,8 +128,18 @@
 				EC9EB5F3226627AF004F83FD /* GPixellationFilter.swift */,
 				ECF4E43B226E1BFA00468A0F /* GLuminanceFilter.swift */,
 				ECF4E43D226E205C00468A0F /* GNormalMapFilter.swift */,
+				ECF4E43F226E2D2200468A0F /* GCameraViewController.swift */,
 			);
 			path = MetalImageFilter;
+			sourceTree = "<group>";
+		};
+		FE36E3575A13E1D75FE61F5C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				478D40DB178E8D3F453311A5 /* Pods-MetalImageFilter.debug.xcconfig */,
+				C372C8A5588804A7F10B0D34 /* Pods-MetalImageFilter.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -122,9 +149,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ECA813E5225B98AB00AFBE4E /* Build configuration list for PBXNativeTarget "MetalImageFilter" */;
 			buildPhases = (
+				4BB16941BC69C2D3C84B4DF6 /* [CP] Check Pods Manifest.lock */,
 				ECA813CD225B98AA00AFBE4E /* Sources */,
 				ECA813CE225B98AA00AFBE4E /* Frameworks */,
 				ECA813CF225B98AA00AFBE4E /* Resources */,
+				6D5B451FD96DF0B222734279 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -181,6 +210,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4BB16941BC69C2D3C84B4DF6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MetalImageFilter-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6D5B451FD96DF0B222734279 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MetalImageFilter/Pods-MetalImageFilter-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MetalImageFilter/Pods-MetalImageFilter-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MetalImageFilter/Pods-MetalImageFilter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		ECA813CD225B98AA00AFBE4E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -191,6 +262,7 @@
 				ECA813F5225B9C3800AFBE4E /* GGaussianBlur2DFilter.swift in Sources */,
 				EC33CAC0225D00E800E15C44 /* GColorGBRFilter.swift in Sources */,
 				ECA813FA225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift in Sources */,
+				ECF4E440226E2D2200468A0F /* GCameraViewController.swift in Sources */,
 				ECA813F2225B9C3800AFBE4E /* Shaders.metal in Sources */,
 				ECA813FB225B9C3800AFBE4E /* UIImage-extension.swift in Sources */,
 				ECA813F4225B9C3800AFBE4E /* GZLog.swift in Sources */,
@@ -348,6 +420,7 @@
 		};
 		ECA813E6225B98AB00AFBE4E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 478D40DB178E8D3F453311A5 /* Pods-MetalImageFilter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -366,6 +439,7 @@
 		};
 		ECA813E7225B98AB00AFBE4E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C372C8A5588804A7F10B0D34 /* Pods-MetalImageFilter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

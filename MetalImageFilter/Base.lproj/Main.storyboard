@@ -154,7 +154,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BBM-G6-2nd"/>
                     </view>
-                    <navigationItem key="navigationItem" id="sD6-5I-FA6"/>
+                    <navigationItem key="navigationItem" id="sD6-5I-FA6">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="camera" id="gdB-VC-vF5">
+                                <connections>
+                                    <action selector="cameraClicked:" destination="rS4-53-sRs" id="pB1-wl-N2g"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="organize" id="hOL-MG-pGH">
+                                <connections>
+                                    <action selector="albumClicked:" destination="rS4-53-sRs" id="bBb-KY-b41"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="containerView" destination="YLz-mo-5nz" id="YjD-LA-mKt"/>
@@ -165,6 +178,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="52e-Xs-55w" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="709" y="129"/>
+        </scene>
+        <!--Camera View Controller-->
+        <scene sceneID="m6x-og-qLf">
+            <objects>
+                <viewController storyboardIdentifier="GCameraViewController" id="JRx-no-3qZ" customClass="GCameraViewController" customModule="MetalImageFilter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Eaz-GS-XlV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="j8y-mU-szO"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a72-PG-65w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1499" y="130"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
