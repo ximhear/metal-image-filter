@@ -122,3 +122,38 @@ kernel void pixellate(texture2d<float, access::read> inTexture [[texture(0)]],
     outTexture.write(color, gid);
 }
 
+kernel void luminance(texture2d<float, access::read> inTexture [[texture(0)]],
+                  texture2d<float, access::write> outTexture [[texture(1)]],
+                  uint2 gid [[thread_position_in_grid]])
+{
+    float4 inColor = inTexture.read(gid);
+    
+    // 0.2126, 0.7152, 0.0722
+    float r = dot(inColor.rgb, float3(0.2126, 0.7152, 0.0722));
+    float4 outColor(r, r, r, 1.0);
+    outTexture.write(outColor, gid);
+}
+
+float lumaAtOffset(texture2d<float, access::read> inTexture, uint2 origin, uint2 offset) {
+    uint2 transformed = origin + offset;
+    float4 inColor = inTexture.read(transformed);
+    float luma = dot(inColor.rgb, float3(0.2126, 0.7152, 0.0722));
+    return luma;
+}
+
+kernel void normalMap(texture2d<float, access::read> inTexture [[texture(0)]],
+                      texture2d<float, access::write> outTexture [[texture(1)]],
+                      uint2 gid [[thread_position_in_grid]])
+{
+    float northLuma = lumaAtOffset(inTexture, gid, uint2(0, -1));
+    float southLuma = lumaAtOffset(inTexture, gid, uint2(0, 1));
+    float westLuma = lumaAtOffset(inTexture, gid, uint2(-1, 0));
+    float eastLuma = lumaAtOffset(inTexture, gid, uint2(1, 0));
+    
+    float horizontalSlope = ((westLuma - eastLuma) + 1.0) * 0.5;
+    float verticalSlope = ((northLuma - southLuma) + 1.0) * 0.5;
+    float4 outColor(horizontalSlope, verticalSlope, 1, 1.0);
+    outTexture.write(outColor, gid);
+}
+
+

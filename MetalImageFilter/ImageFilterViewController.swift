@@ -47,6 +47,10 @@ class ImageFilterViewController: UIViewController {
             self.saturationSlider.value = 1
             self.saturationSlider.minimumValue = 1
             self.saturationSlider.maximumValue = 300
+        case .luminance:
+            containerView.isHidden = true
+        case .normalMap:
+            containerView.isHidden = true
         }
         self.title = filterType.name
         

@@ -15,6 +15,8 @@ enum GImageFilterType {
     case colorGBR
     case sepia
     case pixellation
+    case luminance
+    case normalMap
     
     var name: String {
         switch self {
@@ -30,6 +32,10 @@ enum GImageFilterType {
             return "sepia"
         case .pixellation:
             return "pixellation"
+        case .luminance:
+            return "luminance"
+        case .normalMap:
+            return "Normal Map"
         }
     }
     
@@ -48,6 +54,10 @@ enum GImageFilterType {
             return GSepiaFilter(context: context)
         case .pixellation:
             return GPixellationFilter(context: context)
+        case .luminance:
+            return GLuminanceFilter(context: context)
+        case .normalMap:
+            return GNormalMapFilter(context: context)
         }
     }
 }

@@ -23,6 +23,8 @@ class MasterViewController: UITableViewController {
         objects.append(.colorGBR)
         objects.append(.sepia)
         objects.append(.pixellation)
+        objects.append(.luminance)
+        objects.append(.normalMap)
         // Do any additional setup after loading the view.
 
         if let split = splitViewController {
