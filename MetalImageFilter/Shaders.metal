@@ -65,8 +65,9 @@ kernel void rotation_around_center(texture2d<float, access::read> inTexture [[te
     float modX = (gid.x - centerX);
     float modY = (centerY - gid.y);
     float distance = sqrt(modX*modX + modY*modY);
-    if (distance <= centerX) {
-        float theta = factor * PI * pow(distance/centerX, 3);
+    float centerMinDimension = min(centerX, centerY);
+    if (distance <= centerMinDimension) {
+        float theta = factor * PI * pow(distance/centerMinDimension, 3);
         uint2 textureIndex(cos(theta) * modX - sin(theta) * modY + centerX, centerY - (sin(theta) * modX + cos(theta) * modY));
         float4 color = inTexture.read(textureIndex).rgba;
         outTexture.write(float4(color.rgb, 1), gid);
