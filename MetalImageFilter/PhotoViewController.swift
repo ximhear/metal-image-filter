@@ -48,9 +48,8 @@ class PhotoPreviewViewController: UIViewController, UIScrollViewDelegate {
 
 class PhotoSettingsViewController: UITableViewController {
     
-    var squareLayoutConstraint: NSLayoutConstraint!
-    var wideLayoutConstraint: NSLayoutConstraint!
     var previewView: CKFPreviewView!
+    var ratioChanged: (_ index: Int) -> Void = { _ in }
     
     @IBOutlet weak var cameraSegmentControl: UISegmentedControl!
     @IBOutlet weak var flashSegmentControl: UISegmentedControl!
@@ -85,13 +84,10 @@ class PhotoSettingsViewController: UITableViewController {
         if let session = self.previewView.session as? CKFPhotoSession {
             if sender.selectedSegmentIndex == 0 {
                 session.resolution = CGSize(width: 3024, height: 4032)
-                self.squareLayoutConstraint.priority = .defaultLow
-                self.wideLayoutConstraint.priority = .defaultHigh
             } else {
                 session.resolution = CGSize(width: 3024, height: 3024)
-                self.squareLayoutConstraint.priority = .defaultHigh
-                self.wideLayoutConstraint.priority = .defaultLow
             }
+            ratioChanged(sender.selectedSegmentIndex)
         }
     }
 }
@@ -99,10 +95,18 @@ class PhotoSettingsViewController: UITableViewController {
 class PhotoViewController: UIViewController, CKFSessionDelegate {
     
     @IBOutlet weak var squareLayoutConstraint: NSLayoutConstraint!
-    @IBOutlet weak var wideLayoutConstraint: NSLayoutConstraint!
+    var wideLayoutConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var zoomLabel: UILabel!
     @IBOutlet weak var captureButton: UIButton!
+    
+    @IBOutlet var leadingConstraint: NSLayoutConstraint!
+    @IBOutlet var trailingConstraint: NSLayoutConstraint!
+    @IBOutlet var topConstraint: NSLayoutConstraint!
+    @IBOutlet var bottomConstraint: NSLayoutConstraint!
+
+    @IBOutlet weak var containerView: UIView!
+
     
     var imageCaptured: (_ image: UIImage) -> Void = {_ in }
     
@@ -115,8 +119,15 @@ class PhotoViewController: UIViewController, CKFSessionDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? PhotoSettingsViewController {
             vc.previewView = self.previewView
-            vc.squareLayoutConstraint = self.squareLayoutConstraint
-            vc.wideLayoutConstraint = self.wideLayoutConstraint
+            vc.ratioChanged = {[weak self] (index) in
+                if index == 0 {
+                    self?.squareLayoutConstraint.priority = .defaultLow
+                    self?.wideLayoutConstraint.priority = .defaultHigh
+                } else {
+                    self?.squareLayoutConstraint.priority = .defaultHigh
+                    self?.wideLayoutConstraint.priority = .defaultLow
+                }
+            }
         } else if let nvc = segue.destination as? UINavigationController, let vc = nvc.children.first as? PhotoPreviewViewController {
             vc.image = sender as? UIImage
         }
@@ -137,11 +148,48 @@ class PhotoViewController: UIViewController, CKFSessionDelegate {
     @IBOutlet weak var panelView: UIVisualEffectView!
     
     override func viewDidLoad() {
+        GZLogFunc(UIScreen.main.bounds)
         super.viewDidLoad()
         self.panelView.transform = CGAffineTransform(translationX: 0, y: self.panelView.frame.height + 5)
         self.panelView.isUserInteractionEnabled = false
+        
+        if UIScreen.main.bounds.width > UIScreen.main.bounds.height {
+            self.containerView.removeConstraint(leadingConstraint)
+            self.containerView.removeConstraint(trailingConstraint)
+            wideLayoutConstraint = NSLayoutConstraint.init(item: previewView, attribute: .height, relatedBy: .equal, toItem: previewView, attribute: .width, multiplier: 0.75, constant: 0)
+        }
+        else {
+            self.containerView.removeConstraint(topConstraint)
+            self.containerView.removeConstraint(bottomConstraint)
+            wideLayoutConstraint = NSLayoutConstraint.init(item: previewView, attribute: .width, relatedBy: .equal, toItem: previewView, attribute: .height, multiplier: 0.75, constant: 0)
+        }
+        wideLayoutConstraint.priority = .defaultHigh
+        previewView.addConstraint(wideLayoutConstraint)
     }
-    
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        GZLogFunc(size)
+        
+        let priority = wideLayoutConstraint.priority
+        previewView.removeConstraint(wideLayoutConstraint)
+        if size.width > size.height {
+            self.containerView.removeConstraint(leadingConstraint)
+            self.containerView.removeConstraint(trailingConstraint)
+            self.containerView.addConstraint(topConstraint)
+            self.containerView.addConstraint(bottomConstraint)
+            wideLayoutConstraint = NSLayoutConstraint.init(item: previewView, attribute: .height, relatedBy: .equal, toItem: previewView, attribute: .width, multiplier: 0.75, constant: 0)
+        }
+        else {
+            self.containerView.removeConstraint(topConstraint)
+            self.containerView.removeConstraint(bottomConstraint)
+            self.containerView.addConstraint(leadingConstraint)
+            self.containerView.addConstraint(trailingConstraint)
+            wideLayoutConstraint = NSLayoutConstraint.init(item: previewView, attribute: .width, relatedBy: .equal, toItem: previewView, attribute: .height, multiplier: 0.75, constant: 0)
+        }
+        wideLayoutConstraint.priority = priority
+        previewView.addConstraint(wideLayoutConstraint)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.previewView.session?.start()

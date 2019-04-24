@@ -8,6 +8,7 @@
 
 import UIKit
 import simd
+import CoreServices
 
 class ImageFilterViewController: UIViewController {
 
@@ -112,6 +113,15 @@ class ImageFilterViewController: UIViewController {
     
     @IBAction func albumClicked(_ sender: Any) {
         GZLogFunc()
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.sourceType = .photoLibrary
+            picker.mediaTypes = [kUTTypeImage as String]
+            picker.allowsEditing = false
+            present(picker, animated: true, completion: nil)
+        }
     }
     
     @IBAction func cameraClicked(_ sender: Any) {
@@ -130,3 +140,23 @@ class ImageFilterViewController: UIViewController {
     }
 }
 
+extension ImageFilterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+        let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! String
+        if mediaType == kUTTypeImage as String {
+            let image =  (info[UIImagePickerController.InfoKey.originalImage] as! UIImage).fixedOrientation()
+            self.imageChanged(image)
+            self.image = image
+            self.buildFilterGraph(image: image)
+            self.updateImage()
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
