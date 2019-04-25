@@ -54,6 +54,8 @@ class ImageFilterViewController: UIViewController {
             containerView.isHidden = true
         case .normalMap:
             containerView.isHidden = true
+        case .invert:
+            containerView.isHidden = true
         }
         self.title = filterType.name
         

@@ -90,6 +90,38 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EC28B4352271940F00E97BAD /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				ECA813D6225B98AA00AFBE4E /* MasterViewController.swift */,
+				ECA813FC225B9CD500AFBE4E /* ImageFilterViewController.swift */,
+				ECF4E442226E319700468A0F /* PhotoViewController.swift */,
+				ECF4E441226E319700468A0F /* VideoViewController.swift */,
+				ECA813DA225B98AA00AFBE4E /* Main.storyboard */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		EC28B4362271943B00E97BAD /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				ECA813EC225B9C3700AFBE4E /* GContext.swift */,
+				ECA813ED225B9C3700AFBE4E /* MainBundleTextureProvider.swift */,
+				ECA813EB225B9C3700AFBE4E /* GGaussianBlur2DFilter.swift */,
+				ECA813EF225B9C3800AFBE4E /* GImageFilter.swift */,
+				ECA813E9225B9C3700AFBE4E /* GRotationFilter.swift */,
+				ECA813F0225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift */,
+				ECA813EE225B9C3800AFBE4E /* GTextureProvider.swift */,
+				EC33CABF225D00E800E15C44 /* GColorGBRFilter.swift */,
+				EC65920A2263AA750088B28E /* GImageFilterType.swift */,
+				EC65920C2263AAD40088B28E /* GSepiaFilter.swift */,
+				EC9EB5F3226627AF004F83FD /* GPixellationFilter.swift */,
+				ECF4E43B226E1BFA00468A0F /* GLuminanceFilter.swift */,
+				ECF4E43D226E205C00468A0F /* GNormalMapFilter.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
 		ECA813C8225B98AA00AFBE4E = {
 			isa = PBXGroup;
 			children = (
@@ -111,33 +143,17 @@
 		ECA813D3225B98AA00AFBE4E /* MetalImageFilter */ = {
 			isa = PBXGroup;
 			children = (
-				ECF4E442226E319700468A0F /* PhotoViewController.swift */,
-				ECF4E443226E319800468A0F /* UIView+Border.swift */,
-				ECF4E441226E319700468A0F /* VideoViewController.swift */,
-				ECA813FC225B9CD500AFBE4E /* ImageFilterViewController.swift */,
-				ECA813EC225B9C3700AFBE4E /* GContext.swift */,
-				ECA813EB225B9C3700AFBE4E /* GGaussianBlur2DFilter.swift */,
-				ECA813EF225B9C3800AFBE4E /* GImageFilter.swift */,
-				ECA813E9225B9C3700AFBE4E /* GRotationFilter.swift */,
-				ECA813F0225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift */,
-				ECA813EE225B9C3800AFBE4E /* GTextureProvider.swift */,
-				ECA813EA225B9C3700AFBE4E /* GZLog.swift */,
-				ECA813ED225B9C3700AFBE4E /* MainBundleTextureProvider.swift */,
+				EC28B4362271943B00E97BAD /* Filter */,
+				EC28B4352271940F00E97BAD /* VC */,
 				ECA813E8225B9C3700AFBE4E /* Shaders.metal */,
+				ECF4E443226E319800468A0F /* UIView+Border.swift */,
+				ECA813EA225B9C3700AFBE4E /* GZLog.swift */,
 				ECA813F1225B9C3800AFBE4E /* UIImage-extension.swift */,
+				ECF4E447226E3DA500468A0F /* UIImageExtension.swift */,
 				ECA813D4225B98AA00AFBE4E /* AppDelegate.swift */,
-				ECA813D6225B98AA00AFBE4E /* MasterViewController.swift */,
-				ECA813DA225B98AA00AFBE4E /* Main.storyboard */,
 				ECA813DD225B98AB00AFBE4E /* Assets.xcassets */,
 				ECA813DF225B98AB00AFBE4E /* LaunchScreen.storyboard */,
 				ECA813E2225B98AB00AFBE4E /* Info.plist */,
-				EC33CABF225D00E800E15C44 /* GColorGBRFilter.swift */,
-				EC65920A2263AA750088B28E /* GImageFilterType.swift */,
-				EC65920C2263AAD40088B28E /* GSepiaFilter.swift */,
-				EC9EB5F3226627AF004F83FD /* GPixellationFilter.swift */,
-				ECF4E43B226E1BFA00468A0F /* GLuminanceFilter.swift */,
-				ECF4E43D226E205C00468A0F /* GNormalMapFilter.swift */,
-				ECF4E447226E3DA500468A0F /* UIImageExtension.swift */,
 			);
 			path = MetalImageFilter;
 			sourceTree = "<group>";

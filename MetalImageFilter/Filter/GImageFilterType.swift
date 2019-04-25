@@ -17,6 +17,7 @@ enum GImageFilterType {
     case pixellation
     case luminance
     case normalMap
+    case invert
     
     var name: String {
         switch self {
@@ -36,6 +37,8 @@ enum GImageFilterType {
             return "luminance"
         case .normalMap:
             return "Normal Map"
+        case .invert:
+            return "Invert"
         }
     }
     
@@ -58,6 +61,8 @@ enum GImageFilterType {
             return GLuminanceFilter(context: context)
         case .normalMap:
             return GNormalMapFilter(context: context)
+        case .invert:
+            return GImageFilter(functionName: "invert", context: context)
         }
     }
 }

@@ -25,6 +25,7 @@ class MasterViewController: UITableViewController {
         objects.append(.pixellation)
         objects.append(.luminance)
         objects.append(.normalMap)
+        objects.append(.invert)
         // Do any additional setup after loading the view.
         
         image = UIImage(named: "autumn")
