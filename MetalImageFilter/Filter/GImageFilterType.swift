@@ -18,6 +18,7 @@ enum GImageFilterType {
     case luminance
     case normalMap
     case invert
+    case mpsUnaryImageKernel(type: GMPSUnaryImageFilterType)
     
     var name: String {
         switch self {
@@ -39,6 +40,8 @@ enum GImageFilterType {
             return "Normal Map"
         case .invert:
             return "Invert"
+        case .mpsUnaryImageKernel(let type):
+            return type.name
         }
     }
     
@@ -63,6 +66,8 @@ enum GImageFilterType {
             return GNormalMapFilter(context: context)
         case .invert:
             return GImageFilter(functionName: "invert", context: context)
+        case .mpsUnaryImageKernel(let type):
+            return GMPSUnaryImageFilter(type: type, context: context)
         }
     }
 }

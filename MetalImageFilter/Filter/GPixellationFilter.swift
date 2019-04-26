@@ -29,7 +29,7 @@ class GPixellationFilter: GImageFilter {
     
     var uniforms: UnsafeMutablePointer<PixellationUniforms>
     
-    init?(context: GContext) {
+    override init?(context: GContext) {
         
         guard let buffer = context.device.makeBuffer(length: MemoryLayout<PixellationUniforms>.size, options: [MTLResourceOptions.init(rawValue: 0)]) else { return nil }
         uniforms = UnsafeMutableRawPointer(buffer.contents()).bindMemory(to:PixellationUniforms.self, capacity:1)

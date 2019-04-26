@@ -56,6 +56,15 @@ class ImageFilterViewController: UIViewController {
             containerView.isHidden = true
         case .invert:
             containerView.isHidden = true
+        case .mpsUnaryImageKernel(let type):
+            switch type {
+            case .sobel:
+                containerView.isHidden = true
+            case .gaussianBlur:
+                self.saturationSlider.minimumValue = 1
+                self.saturationSlider.maximumValue = 8
+                containerView.isHidden = false
+            }
         }
         self.title = filterType.name
         

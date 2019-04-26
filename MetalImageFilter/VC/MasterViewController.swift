@@ -26,6 +26,8 @@ class MasterViewController: UITableViewController {
         objects.append(.luminance)
         objects.append(.normalMap)
         objects.append(.invert)
+        objects.append(.mpsUnaryImageKernel(type: .sobel))
+        objects.append(.mpsUnaryImageKernel(type: .gaussianBlur))
         // Do any additional setup after loading the view.
         
         image = UIImage(named: "autumn")

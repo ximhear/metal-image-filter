@@ -10,7 +10,7 @@ import UIKit
 
 class GLuminanceFilter: GImageFilter {
 
-    init?(context: GContext) {
+    override init?(context: GContext) {
         
         super.init(functionName: "luminance", context: context)
     }

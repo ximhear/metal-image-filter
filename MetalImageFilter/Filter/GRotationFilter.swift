@@ -30,7 +30,7 @@ class GRotationFilter: GImageFilter {
     
     var uniforms: UnsafeMutablePointer<RotationUniforms>
 
-    init?(context: GContext) {
+    override init?(context: GContext) {
         
         guard let buffer = context.device.makeBuffer(length: MemoryLayout<RotationUniforms>.size, options: [MTLResourceOptions.init(rawValue: 0)]) else { return nil }
         uniforms = UnsafeMutableRawPointer(buffer.contents()).bindMemory(to:RotationUniforms.self, capacity:1)

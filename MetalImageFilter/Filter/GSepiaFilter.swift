@@ -10,7 +10,7 @@ import Foundation
 
 class GSepiaFilter : GImageFilter {
     
-    init?(context: GContext) {
+    override init?(context: GContext) {
         
         super.init(functionName: "sepia", context: context)
     }
