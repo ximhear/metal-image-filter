@@ -11,6 +11,7 @@ import Foundation
 enum GMPSUnaryImageFilterType {
     case sobel
     case gaussianBlur
+    case gaussianPyramid
     
     var name: String {
         switch self {
@@ -18,6 +19,8 @@ enum GMPSUnaryImageFilterType {
             return "MPS Sobel"
         case .gaussianBlur:
             return "MPS GaussianBlur"
+        case .gaussianPyramid:
+            return "MPS GaussianPyramid"
         }
     }
 }

@@ -61,9 +61,13 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
             self.internalTexture = self.context.device.makeTexture(descriptor: textureDescriptor)
         }
         
-        if let commandBuffer = self.context.commandQueue.makeCommandBuffer(), let output = internalTexture {
+        if let commandBuffer = self.context.commandQueue.makeCommandBuffer(), let _ = internalTexture {
             
-            encode(input: inputTexture, output: output, commandBuffer: commandBuffer)
+            var output: MTLTexture = internalTexture!
+            let result = encode(input: inputTexture, output: &output, commandBuffer: commandBuffer)
+            if result == true {
+                internalTexture = output
+            }
             
             commandBuffer.commit()
             commandBuffer.waitUntilCompleted()
@@ -71,7 +75,7 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
         GZLogFunc()
     }
     
-    func encode(input: MTLTexture, output: MTLTexture, commandBuffer: MTLCommandBuffer) {
+    func encode(input: MTLTexture, output: inout MTLTexture, commandBuffer: MTLCommandBuffer) -> Bool {
         GZLogFunc("threadExecutionWidth: \(pipeline.threadExecutionWidth)")
         GZLogFunc("maxTotalThreadsPerThreadgroup: \(pipeline.maxTotalThreadsPerThreadgroup)")
         
@@ -92,6 +96,8 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
         commandEncoder?.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
         //        }
         commandEncoder?.endEncoding()
+        
+        return false
     }
     
 }

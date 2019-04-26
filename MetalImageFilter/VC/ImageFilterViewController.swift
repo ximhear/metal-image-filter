@@ -62,7 +62,11 @@ class ImageFilterViewController: UIViewController {
                 containerView.isHidden = true
             case .gaussianBlur:
                 self.saturationSlider.minimumValue = 1
-                self.saturationSlider.maximumValue = 8
+                self.saturationSlider.maximumValue = 20
+                containerView.isHidden = false
+            case .gaussianPyramid:
+                self.saturationSlider.minimumValue = 0
+                self.saturationSlider.maximumValue = 5
                 containerView.isHidden = false
             }
         }
@@ -114,6 +118,7 @@ class ImageFilterViewController: UIViewController {
             filter?.setValue(saturation)
             
             let texture = filter?.texture
+            GZLogFunc("mipmap : \(texture?.mipmapLevelCount)")
             let image = UIImage.init(texture: texture)
             
             DispatchQueue.main.async {[weak self] in
