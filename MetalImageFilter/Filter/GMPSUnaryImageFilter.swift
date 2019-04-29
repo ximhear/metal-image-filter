@@ -25,7 +25,7 @@ class GMPSUnaryImageFilter: GImageFilter {
         super.init(context: context)
     }
     
-    override func encode(input: MTLTexture, output: inout MTLTexture, commandBuffer: MTLCommandBuffer) -> Bool {
+    override func encode(input: inout MTLTexture, output: MTLTexture, commandBuffer: MTLCommandBuffer) -> Bool {
         
         switch type {
         case .sobel:
@@ -33,7 +33,7 @@ class GMPSUnaryImageFilter: GImageFilter {
         case .gaussianBlur:
             gaussianBlur(input, output, commandBuffer)
         case .gaussianPyramid:
-            return gaussianPyramid(input, &output, commandBuffer)
+            return gaussianPyramid(&input, output, commandBuffer)
         }
         return false
     }
@@ -48,22 +48,22 @@ class GMPSUnaryImageFilter: GImageFilter {
         shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: output)
     }
     
-    func gaussianPyramid(_ input: MTLTexture, _ output: inout MTLTexture, _ commandBuffer: MTLCommandBuffer) -> Bool {
+    func gaussianPyramid(_ input: inout MTLTexture, _ output: MTLTexture, _ commandBuffer: MTLCommandBuffer) -> Bool {
         
         let shader = MPSImageGaussianPyramid(device: context.device)//, centerWeight: 0.25)
 //        let shader = MPSImageGaussianPyramid(device: context.device, kernelWidth: 5, kernelHeight: 5, weights: [0.2, 0.2, 0.2, 0.2, 0.2])
 //        let shader = MPSImageGaussianBlur(device: context.device, sigma: _value)
 
-        let inPlaceTexture = UnsafeMutablePointer<MTLTexture>.allocate(capacity: 1)
-        inPlaceTexture.initialize(to: input)
+//        let inPlaceTexture = UnsafeMutablePointer<MTLTexture>.allocate(capacity: 1)
+//        inPlaceTexture.initialize(to: input)
 //        var iii: MTLTexture! = input
-        let r = shader.encode(commandBuffer: commandBuffer, inPlaceTexture: inPlaceTexture, fallbackCopyAllocator: nil)
+        let r = shader.encode(commandBuffer: commandBuffer, inPlaceTexture: &input, fallbackCopyAllocator: nil)
         GZLogFunc(r)
-        output = inPlaceTexture.pointee
+//        output = inPlaceTexture.pointee
         GZLogFunc(input.mipmapLevelCount)
-        GZLogFunc(output.mipmapLevelCount)
-        GZLogFunc()
-        inPlaceTexture.deallocate()
+//        GZLogFunc(output.mipmapLevelCount)
+//        GZLogFunc()
+//        inPlaceTexture.deallocate()
 //        shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: output)
         return true
     }
