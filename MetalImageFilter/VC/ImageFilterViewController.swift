@@ -18,7 +18,7 @@ class ImageFilterViewController: UIViewController {
     
     var imageProvider: GTextureProvider?
     var imageFilter: GImageFilter?
-    var filterType: GImageFilterType = .colorGBR
+    var filterType: GImageFilterType = .mpsUnaryImageKernel(type: .gaussianPyramid)
     var imageChanged: (_ image: UIImage) -> Void = {_ in }
     var image: UIImage!
     

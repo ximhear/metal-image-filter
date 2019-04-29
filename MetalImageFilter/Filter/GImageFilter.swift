@@ -56,7 +56,7 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
             GZLogFunc("pixel format : \(inputTexture.pixelFormat.rawValue)")
             GZLogFunc("width : \(inputTexture.width)")
             GZLogFunc("height : \(inputTexture.height)")
-            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat, width: inputTexture.width, height: inputTexture.height, mipmapped: false)
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat, width: inputTexture.width, height: inputTexture.height, mipmapped: true)
             textureDescriptor.usage = MTLTextureUsage.init(rawValue: MTLTextureUsage.shaderWrite.rawValue | MTLTextureUsage.shaderRead.rawValue)
             self.internalTexture = self.context.device.makeTexture(descriptor: textureDescriptor)
         }
