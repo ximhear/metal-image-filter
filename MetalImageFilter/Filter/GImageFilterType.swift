@@ -49,25 +49,55 @@ enum GImageFilterType {
         
         switch self {
         case .gaussianBlur2D:
-            return GGaussianBlur2DFilter(context: context)
+            return GGaussianBlur2DFilter(context: context, filterType: self)
         case .saturationAdjustment:
-            return GSaturationAdjustmentFilter(context: context)
+            return GSaturationAdjustmentFilter(context: context, filterType: self)
         case .rotation:
-            return GRotationFilter(context: context)
+            return GRotationFilter(context: context, filterType: self)
         case .colorGBR:
-            return GColorGBRFilter(context: context)
+            return GColorGBRFilter(context: context, filterType: self)
         case .sepia:
-            return GSepiaFilter(context: context)
+            return GSepiaFilter(context: context, filterType: self)
         case .pixellation:
-            return GPixellationFilter(context: context)
+            return GPixellationFilter(context: context, filterType: self)
         case .luminance:
-            return GLuminanceFilter(context: context)
+            return GLuminanceFilter(context: context, filterType: self)
         case .normalMap:
-            return GNormalMapFilter(context: context)
+            return GNormalMapFilter(context: context, filterType: self)
         case .invert:
-            return GImageFilter(functionName: "invert", context: context)
+            return GImageFilter(functionName: "invert", context: context, filterType: self)
         case .mpsUnaryImageKernel(let type):
-            return GMPSUnaryImageFilter(type: type, context: context)
+            return GMPSUnaryImageFilter(type: type, context: context, filterType: self)
+        }
+    }
+    
+    var inputMipmapped: Bool {
+        
+        switch self {
+        case .mpsUnaryImageKernel(let type):
+            return type.inputMipmapped
+        default:
+            return false
+        }
+    }
+    
+    var outputMipmapped: Bool {
+        
+        switch self {
+        case .mpsUnaryImageKernel(let type):
+            return type.outputMipmapped
+        default:
+            return false
+        }
+    }
+    
+    var inPlaceTexture: Bool {
+        
+        switch self {
+        case .mpsUnaryImageKernel(let type):
+            return type.inPlaceTexture
+        default:
+            return false
         }
     }
 }

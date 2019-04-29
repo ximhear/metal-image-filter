@@ -27,10 +27,10 @@ class GSaturationAdjustmentFilter: GImageFilter {
     }
     var uniforms: UnsafeMutablePointer<AdjustSaturationUniforms>
 
-    override init?(context: GContext) {
+    override init?(context: GContext, filterType: GImageFilterType) {
         guard let buffer = context.device.makeBuffer(length: MemoryLayout<AdjustSaturationUniforms>.size, options: [MTLResourceOptions.init(rawValue: 0)]) else { return nil }
         uniforms = UnsafeMutableRawPointer(buffer.contents()).bindMemory(to:AdjustSaturationUniforms.self, capacity:1)
-        super.init(functionName: "adjust_saturation", context: context)
+        super.init(functionName: "adjust_saturation", context: context, filterType: filterType)
         uniformBuffer = buffer
     }
     

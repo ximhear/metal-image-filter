@@ -38,8 +38,8 @@ class GGaussianBlur2DFilter : GImageFilter {
     
     var blurWeightTexture: MTLTexture?
 
-    override init(context: GContext) {
-        super.init(functionName: "gaussian_blur_2d", context: context)
+    override init?(context: GContext, filterType: GImageFilterType) {
+        super.init(functionName: "gaussian_blur_2d", context: context, filterType: filterType)
     }
     
     func generateBlurWeightTexture() {

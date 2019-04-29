@@ -30,18 +30,18 @@ class GRotationFilter: GImageFilter {
     
     var uniforms: UnsafeMutablePointer<RotationUniforms>
 
-    override init?(context: GContext) {
+    override init?(context: GContext, filterType: GImageFilterType) {
         
         guard let buffer = context.device.makeBuffer(length: MemoryLayout<RotationUniforms>.size, options: [MTLResourceOptions.init(rawValue: 0)]) else { return nil }
         uniforms = UnsafeMutableRawPointer(buffer.contents()).bindMemory(to:RotationUniforms.self, capacity:1)
-        super.init(functionName: "rotation_around_center", context: context)
+        super.init(functionName: "rotation_around_center", context: context, filterType: filterType)
         uniformBuffer = buffer
     }
     
     override func configureArgumentTable(commandEncoder: MTLComputeCommandEncoder) {
         
-        uniforms[0].width = Float(self.provider.texture.width)
-        uniforms[0].height = Float(self.provider.texture.height)
+        uniforms[0].width = Float(self.provider.texture!.width)
+        uniforms[0].height = Float(self.provider.texture!.height)
         uniforms[0].factor = _factor
         commandEncoder.setBuffer(self.uniformBuffer, offset: 0, index: 0)
     }

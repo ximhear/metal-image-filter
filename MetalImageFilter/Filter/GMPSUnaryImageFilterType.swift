@@ -23,5 +23,32 @@ enum GMPSUnaryImageFilterType {
             return "MPS GaussianPyramid"
         }
     }
+    
+    var inputMipmapped: Bool {
+        switch self {
+        case .gaussianPyramid:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    var outputMipmapped: Bool {
+        switch self {
+        case .gaussianPyramid:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    var inPlaceTexture: Bool {
+        switch self {
+        case .gaussianPyramid:
+            return true
+        default:
+            return false
+        }
+    }
 }
 

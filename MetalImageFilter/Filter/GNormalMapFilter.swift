@@ -10,8 +10,8 @@ import UIKit
 
 class GNormalMapFilter: GImageFilter {
 
-    override init?(context: GContext) {
+    override init?(context: GContext, filterType: GImageFilterType) {
         
-        super.init(functionName: "normalMap", context: context)
+        super.init(functionName: "normalMap", context: context, filterType: filterType)
     }
 }

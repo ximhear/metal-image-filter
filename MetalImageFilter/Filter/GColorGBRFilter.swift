@@ -29,11 +29,11 @@ class GColorGBRFilter: GImageFilter {
     
     var uniforms: UnsafeMutablePointer<RGBUniforms>
 
-    override init?(context: GContext) {
+    override init?(context: GContext, filterType: GImageFilterType) {
         
         guard let buffer = context.device.makeBuffer(length: MemoryLayout<RGBUniforms>.size, options: [MTLResourceOptions.init(rawValue: 0)]) else { return nil }
         uniforms = UnsafeMutableRawPointer(buffer.contents()).bindMemory(to:RGBUniforms.self, capacity:1)
-        super.init(functionName: "gbr", context: context)
+        super.init(functionName: "gbr", context: context, filterType: filterType )
         uniformBuffer = buffer
     }
     

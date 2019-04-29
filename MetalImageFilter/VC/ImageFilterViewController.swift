@@ -29,6 +29,8 @@ class ImageFilterViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.renderingQueue = DispatchQueue.init(label: "Rendering")
         
+        buildFilterGraph(image: self.image)
+        
         switch filterType {
         case .gaussianBlur2D:
             self.saturationSlider.value = 1
@@ -65,14 +67,14 @@ class ImageFilterViewController: UIViewController {
                 self.saturationSlider.maximumValue = 20
                 containerView.isHidden = false
             case .gaussianPyramid:
+                self.saturationSlider.value = 0
                 self.saturationSlider.minimumValue = 0
-                self.saturationSlider.maximumValue = 5
+                self.saturationSlider.maximumValue = Float(self.imageProvider!.texture!.mipmapLevelCount - 1)
                 containerView.isHidden = false
             }
         }
         self.title = filterType.name
         
-        buildFilterGraph(image: self.image)
         updateImage()
     }
 
@@ -86,13 +88,14 @@ class ImageFilterViewController: UIViewController {
     }
     
     @IBAction func saturationChanged(_ sender: Any) {
+        
         updateImage()
     }
     
     func buildFilterGraph(image: UIImage) {
         let context = GContext()
         
-        self.imageProvider = MainBundleTextureProvider.init(image: image, context: context)
+        self.imageProvider = MainBundleTextureProvider.init(image: image, context: context, mipmapped: filterType.inputMipmapped)
 
         self.imageFilter = filterType.createImageFilter(context: context)
         self.imageFilter?.provider = self.imageProvider!

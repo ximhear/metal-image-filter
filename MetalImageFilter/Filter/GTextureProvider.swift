@@ -10,7 +10,7 @@ import Foundation
 import Metal
 
 protocol GTextureProvider {
-    var texture: MTLTexture! {get}
+    var texture: MTLTexture? {get}
 }
 
 protocol GTextureConsumer {
