@@ -64,9 +64,27 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
         if let commandBuffer = self.context.commandQueue.makeCommandBuffer(), let _ = internalTexture {
             
             var output: MTLTexture = internalTexture!
+            
             let result = encode(input: inputTexture, output: &output, commandBuffer: commandBuffer)
             if result == true {
-                internalTexture = output
+                GZLogFunc("\(output.width) x \(output.height)")
+                
+                let width = output.width / 2 / 2
+                let height = output.height / 2 / 2
+                
+                let rawData = UnsafeMutableRawPointer.allocate(byteCount: width * height * 4, alignment: 1)// UnsafeMutablePointer<UInt8>.allocate(capacity: width * height * 4)
+                let bytesPerPixel = 4
+                let bytesPerRow = bytesPerPixel * width
+                output.getBytes(rawData, bytesPerRow: bytesPerRow, from: MTLRegionMake2D(0, 0, width, height), mipmapLevel: 2)
+
+                let textureDescriptor: MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm, width: width, height: height, mipmapped: false)
+                textureDescriptor.usage = .shaderRead
+                
+                let texture = context.device.makeTexture(descriptor: textureDescriptor)
+                let region = MTLRegionMake2D(0, 0, width, height)
+                texture?.replace(region: region, mipmapLevel: 0, withBytes: rawData, bytesPerRow: bytesPerRow)
+                rawData.deallocate()
+                internalTexture = texture
             }
             
             commandBuffer.commit()

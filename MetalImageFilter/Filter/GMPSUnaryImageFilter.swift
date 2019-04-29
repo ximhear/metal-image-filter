@@ -50,10 +50,9 @@ class GMPSUnaryImageFilter: GImageFilter {
     
     func gaussianPyramid(_ input: MTLTexture, _ output: inout MTLTexture, _ commandBuffer: MTLCommandBuffer) -> Bool {
         
-        let shader = MPSImageGaussianPyramid(device: context.device, centerWeight: 0.25)
+        let shader = MPSImageGaussianPyramid(device: context.device, centerWeight: 0.375)
 //        let shader = MPSImageGaussianBlur(device: context.device, sigma: _value)
 
-        let allocator: MPSCopyAllocator = { $2.device.makeTexture(descriptor: $2.matchingDescriptor())! }
         let inPlaceTexture = UnsafeMutablePointer<MTLTexture>.allocate(capacity: 1)
         inPlaceTexture.initialize(to: input)
 //        var iii: MTLTexture? = input

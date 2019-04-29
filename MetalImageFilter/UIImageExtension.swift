@@ -72,4 +72,14 @@ extension UIImage {
         guard let newCGImage = ctx.makeImage() else { return self }
         return UIImage.init(cgImage: newCGImage, scale: 1, orientation: .up)
     }
+    
+    public convenience init(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
+        color.setFill()
+        UIRectFill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        self.init(cgImage: (image?.cgImage)!)
+    }
+
 }
