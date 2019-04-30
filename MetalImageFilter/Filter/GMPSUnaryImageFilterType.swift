@@ -12,6 +12,7 @@ enum GMPSUnaryImageFilterType {
     case sobel
     case gaussianBlur
     case gaussianPyramid
+    case laplacianPyramid
     
     var name: String {
         switch self {
@@ -21,12 +22,16 @@ enum GMPSUnaryImageFilterType {
             return "MPS GaussianBlur"
         case .gaussianPyramid:
             return "MPS GaussianPyramid"
+        case .laplacianPyramid:
+            return "MPS LaplacianPyramid"
         }
     }
     
     var inputMipmapped: Bool {
         switch self {
         case .gaussianPyramid:
+            return true
+        case .laplacianPyramid:
             return true
         default:
             return false
@@ -37,6 +42,8 @@ enum GMPSUnaryImageFilterType {
         switch self {
         case .gaussianPyramid:
             return true
+        case .laplacianPyramid:
+            return true
         default:
             return false
         }
@@ -46,6 +53,8 @@ enum GMPSUnaryImageFilterType {
         switch self {
         case .gaussianPyramid:
             return true
+        case .laplacianPyramid:
+            return false
         default:
             return false
         }

@@ -18,7 +18,7 @@ class ImageFilterViewController: UIViewController {
     
     var imageProvider: GTextureProvider?
     var imageFilter: GImageFilter?
-    var filterType: GImageFilterType = .mpsUnaryImageKernel(type: .gaussianPyramid)
+    var filterType: GImageFilterType = .mpsUnaryImageKernel(type: .laplacianPyramid)
     var imageChanged: (_ image: UIImage) -> Void = {_ in }
     var image: UIImage!
     
@@ -67,6 +67,11 @@ class ImageFilterViewController: UIViewController {
                 self.saturationSlider.maximumValue = 20
                 containerView.isHidden = false
             case .gaussianPyramid:
+                self.saturationSlider.value = 0
+                self.saturationSlider.minimumValue = 0
+                self.saturationSlider.maximumValue = Float(self.imageProvider!.texture!.mipmapLevelCount - 1)
+                containerView.isHidden = false
+            case .laplacianPyramid:
                 self.saturationSlider.value = 0
                 self.saturationSlider.minimumValue = 0
                 self.saturationSlider.maximumValue = Float(self.imageProvider!.texture!.mipmapLevelCount - 1)

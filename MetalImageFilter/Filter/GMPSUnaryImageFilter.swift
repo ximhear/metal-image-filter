@@ -34,6 +34,8 @@ class GMPSUnaryImageFilter: GImageFilter {
             gaussianBlur(input, output, commandBuffer)
         case .gaussianPyramid:
             gaussianPyramid(&input, output, commandBuffer)
+        case .laplacianPyramid:
+            laplacianPyramid(&input, output, commandBuffer)
         }
     }
     
@@ -82,30 +84,19 @@ class GMPSUnaryImageFilter: GImageFilter {
     
     func gaussianPyramid(_ input: inout MTLTexture, _ output: MTLTexture, _ commandBuffer: MTLCommandBuffer) {
         
-        let shader = MPSImageGaussianPyramid(device: context.device , centerWeight: 0.25)
+        let shader = MPSImageGaussianPyramid(device: context.device , centerWeight: 0.375)
 //        let shader = MPSImageGaussianPyramid(device: context.device, kernelWidth: 5, kernelHeight: 5, weights: [0.2, 0.2, 0.2, 0.2, 0.2])
         _ = shader.encode(commandBuffer: commandBuffer, inPlaceTexture: &input, fallbackCopyAllocator: nil)
-        GZLogFunc(input.mipmapLevelCount)
     }
-}
-
-extension MTLTexture {
-    /// Utility function for building a descriptor that matches this texture
-    func matchingDescriptor() -> MTLTextureDescriptor {
-        let descriptor = MTLTextureDescriptor()
-        descriptor.textureType = self.textureType
-        // NOTE: We should be more careful to select a renderable pixel format here,
-        // especially if operating on a compressed texture.
-        descriptor.pixelFormat = self.pixelFormat
-        descriptor.width = self.width
-        descriptor.height = self.height
-        descriptor.depth = self.depth
-        descriptor.mipmapLevelCount = self.mipmapLevelCount
-        descriptor.arrayLength = self.arrayLength
-        // NOTE: We don't set resourceOptions here, since we explicitly set cache and storage modes below.
-        descriptor.cpuCacheMode = self.cpuCacheMode
-        descriptor.storageMode = self.storageMode
-        descriptor.usage = self.usage
-        return descriptor
+    
+    func laplacianPyramid(_ input: inout MTLTexture, _ output: MTLTexture, _ commandBuffer: MTLCommandBuffer) {
+        
+        let shader = MPSImageLaplacianPyramid(device: context.device)// , centerWeight: 0.375)
+        GZLogFunc(shader.laplacianBias)
+        GZLogFunc(shader.laplacianScale)
+//        let shader = MPSImageLaplacianPyramid(device: context.device, kernelWidth: 3, kernelHeight: 3, weights: [0, 1, 0, 1, -4, 1, 0, 1, 0])
+        shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: output)
+//        _ = shader.encode(commandBuffer: commandBuffer, inPlaceTexture: &input, fallbackCopyAllocator: nil)
+        GZLogFunc(output.mipmapLevelCount)
     }
 }
