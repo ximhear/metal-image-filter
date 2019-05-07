@@ -66,7 +66,7 @@ enum GMPSUnaryImageFilterType {
     var output2Required: Bool {
         switch self {
         case .laplacian:
-            return false
+            return true
         default:
             return false
         }

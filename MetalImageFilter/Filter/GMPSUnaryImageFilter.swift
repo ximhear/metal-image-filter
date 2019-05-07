@@ -84,15 +84,15 @@ class GMPSUnaryImageFilter: GImageFilter {
 //        let shader = MPSImageConvolution(device: context.device, kernelWidth: 3, kernelHeight: 3, weights: [0, 1, 0, 1, -4, 1, 0, 1, 0])
 //        let shader = MPSImageConvolution(device: context.device, kernelWidth: 3, kernelHeight: 3, weights: [1, 1, 1, 1, -8, 1, 1, 1, 1])
         let shader = MPSImageLaplacian(device: context.device)
-//        shader.bias = 1
+//        shader.bias = 0.1
         if let o = tempOutput {
 //            let sobel = MPSImageSobel(device: context.device)
 //            sobel.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: o)
 //            shader.encode(commandBuffer: commandBuffer, sourceTexture: o, destinationTexture: finalOutput)
             
-            let blur = MPSImageGaussianBlur(device: context.device, sigma: _value)
-            blur.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: o)
-            shader.encode(commandBuffer: commandBuffer, sourceTexture: o, destinationTexture: finalOutput)
+            shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: o)
+            let threshold = MPSImageThresholdBinary(device: context.device, thresholdValue: 0.02, maximumValue: 1, linearGrayColorTransform: nil)
+            threshold.encode(commandBuffer: commandBuffer, sourceTexture: o, destinationTexture: finalOutput)
         }
         else {
             shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: finalOutput)
