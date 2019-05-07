@@ -520,7 +520,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Ijz-ka-g7u">
-                                                    <rect key="frame" x="346" y="11" width="362" height="29"/>
+                                                    <rect key="frame" x="171.66666666666663" y="11" width="187.33333333333337" height="29"/>
                                                     <segments>
                                                         <segment title="Back"/>
                                                         <segment title="Front"/>
@@ -556,7 +556,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BBw-uq-jO9">
-                                                    <rect key="frame" x="346" y="11" width="362" height="29"/>
+                                                    <rect key="frame" x="171.66666666666663" y="11" width="187.33333333333337" height="29"/>
                                                     <segments>
                                                         <segment title="Auto"/>
                                                         <segment title="On"/>
@@ -593,7 +593,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="RXG-UZ-lyI">
-                                                    <rect key="frame" x="346" y="11" width="362" height="29"/>
+                                                    <rect key="frame" x="171.66666666666663" y="11" width="187.33333333333337" height="29"/>
                                                     <segments>
                                                         <segment title="Off"/>
                                                         <segment title="On"/>
@@ -629,7 +629,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9bR-IN-Wnv">
-                                                    <rect key="frame" x="346" y="11" width="362" height="29"/>
+                                                    <rect key="frame" x="171.66666666666663" y="11" width="187.33333333333337" height="29"/>
                                                     <segments>
                                                         <segment title="Off"/>
                                                         <segment title="On"/>
@@ -665,7 +665,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NqU-6d-gpj">
-                                                    <rect key="frame" x="346" y="11" width="362" height="29"/>
+                                                    <rect key="frame" x="171.66666666666663" y="11" width="187.33333333333337" height="29"/>
                                                     <segments>
                                                         <segment title="Wide"/>
                                                         <segment title="Square"/>
@@ -997,7 +997,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="n5r-ep-ZbF">
-                                                    <rect key="frame" x="346" y="11" width="362" height="29"/>
+                                                    <rect key="frame" x="171.66666666666663" y="11" width="187.33333333333337" height="29"/>
                                                     <segments>
                                                         <segment title="Back"/>
                                                         <segment title="Front"/>
@@ -1033,7 +1033,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="W3t-w9-KES">
-                                                    <rect key="frame" x="346" y="11" width="362" height="29"/>
+                                                    <rect key="frame" x="171.66666666666663" y="11" width="187.33333333333337" height="29"/>
                                                     <segments>
                                                         <segment title="Auto"/>
                                                         <segment title="On"/>
@@ -1070,7 +1070,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ppV-vk-K4z">
-                                                    <rect key="frame" x="346" y="11" width="362" height="29"/>
+                                                    <rect key="frame" x="171.66666666666663" y="11" width="187.33333333333337" height="29"/>
                                                     <segments>
                                                         <segment title="Off"/>
                                                         <segment title="On"/>
@@ -1106,7 +1106,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="h8y-Dp-KPw">
-                                                    <rect key="frame" x="346" y="11" width="362" height="29"/>
+                                                    <rect key="frame" x="171.66666666666663" y="11" width="187.33333333333337" height="29"/>
                                                     <segments>
                                                         <segment title="HD"/>
                                                         <segment title="HD@60"/>
@@ -1202,6 +1202,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Tll-UG-LXB"/>
+        <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
 </document>

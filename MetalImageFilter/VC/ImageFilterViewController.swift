@@ -28,7 +28,7 @@ class ImageFilterViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.renderingQueue = DispatchQueue.init(label: "Rendering")
-        imageView.backgroundColor = .black
+        imageView.backgroundColor = .blue
         
         buildFilterGraph(image: self.image)
         
