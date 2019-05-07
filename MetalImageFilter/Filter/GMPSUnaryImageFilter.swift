@@ -37,7 +37,7 @@ class GMPSUnaryImageFilter: GImageFilter {
         case .gaussianPyramid:
             gaussianPyramid(&input, finalOutput, commandBuffer)
         case .laplacianPyramid:
-            laplacianPyramid(&input, finalOutput, commandBuffer)
+            laplacianPyramid(&input, tempOutput, finalOutput, commandBuffer)
         }
     }
     
@@ -112,14 +112,25 @@ class GMPSUnaryImageFilter: GImageFilter {
         _ = shader.encode(commandBuffer: commandBuffer, inPlaceTexture: &input, fallbackCopyAllocator: nil)
     }
     
-    func laplacianPyramid(_ input: inout MTLTexture, _ output: MTLTexture, _ commandBuffer: MTLCommandBuffer) {
+    func laplacianPyramid(_ input: inout MTLTexture, _ tempOutput: MTLTexture?, _ finalOutput: MTLTexture, _ commandBuffer: MTLCommandBuffer) {
         
         let shader = MPSImageLaplacianPyramid(device: context.device)// , centerWeight: 0.375)
+//        shader.laplacianBias = 0.5
         GZLogFunc(shader.laplacianBias)
         GZLogFunc(shader.laplacianScale)
-//        let shader = MPSImageLaplacianPyramid(device: context.device, kernelWidth: 3, kernelHeight: 3, weights: [0, 1, 0, 1, -4, 1, 0, 1, 0])
-        shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: output)
-//        _ = shader.encode(commandBuffer: commandBuffer, inPlaceTexture: &input, fallbackCopyAllocator: nil)
-        GZLogFunc(output.mipmapLevelCount)
+
+        if let o = tempOutput {
+            
+            shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: o)
+            let threshold = MPSImageThresholdBinary(device: context.device, thresholdValue: 0.02, maximumValue: 1, linearGrayColorTransform: nil)
+            threshold.encode(commandBuffer: commandBuffer, sourceTexture: o, destinationTexture: finalOutput)
+        }
+        else {
+            let gaussian = MPSImageGaussianPyramid(device: context.device , centerWeight: 0.375)
+            _ = gaussian.encode(commandBuffer: commandBuffer, inPlaceTexture: &input, fallbackCopyAllocator: nil)
+            
+//            _ = shader.encode(commandBuffer: commandBuffer, inPlaceTexture: &input, fallbackCopyAllocator: nil)
+            shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: finalOutput)
+        }
     }
 }

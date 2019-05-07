@@ -67,6 +67,8 @@ enum GMPSUnaryImageFilterType {
         switch self {
         case .laplacian:
             return true
+        case .laplacianPyramid:
+            return false
         default:
             return false
         }
