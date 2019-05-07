@@ -82,10 +82,16 @@ class GMPSUnaryImageFilter: GImageFilter {
     func laplacian(_ input: MTLTexture, _ tempOutput: MTLTexture?, _ finalOutput: MTLTexture, _ commandBuffer: MTLCommandBuffer) {
 //        let shader = MPSImageConvolution(device: context.device, kernelWidth: 3, kernelHeight: 3, weights: [1,2,1,2,4,2,1,2,1])
 //        let shader = MPSImageConvolution(device: context.device, kernelWidth: 3, kernelHeight: 3, weights: [0, 1, 0, 1, -4, 1, 0, 1, 0])
+//        let shader = MPSImageConvolution(device: context.device, kernelWidth: 3, kernelHeight: 3, weights: [1, 1, 1, 1, -8, 1, 1, 1, 1])
         let shader = MPSImageLaplacian(device: context.device)
+//        shader.bias = 1
         if let o = tempOutput {
-            let sobel = MPSImageSobel(device: context.device)
-            sobel.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: o)
+//            let sobel = MPSImageSobel(device: context.device)
+//            sobel.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: o)
+//            shader.encode(commandBuffer: commandBuffer, sourceTexture: o, destinationTexture: finalOutput)
+            
+            let blur = MPSImageGaussianBlur(device: context.device, sigma: _value)
+            blur.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: o)
             shader.encode(commandBuffer: commandBuffer, sourceTexture: o, destinationTexture: finalOutput)
         }
         else {
