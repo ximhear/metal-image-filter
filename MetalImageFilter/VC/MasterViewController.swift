@@ -27,6 +27,7 @@ class MasterViewController: UITableViewController {
         objects.append(.normalMap)
         objects.append(.invert)
         objects.append(.mpsUnaryImageKernel(type: .sobel))
+        objects.append(.mpsUnaryImageKernel(type: .laplacian))
         objects.append(.mpsUnaryImageKernel(type: .gaussianBlur))
         objects.append(.mpsUnaryImageKernel(type: .gaussianPyramid))
         objects.append(.mpsUnaryImageKernel(type: .laplacianPyramid))

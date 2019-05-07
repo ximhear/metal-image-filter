@@ -10,6 +10,7 @@ import Foundation
 
 enum GMPSUnaryImageFilterType {
     case sobel
+    case laplacian
     case gaussianBlur
     case gaussianPyramid
     case laplacianPyramid
@@ -18,6 +19,8 @@ enum GMPSUnaryImageFilterType {
         switch self {
         case .sobel:
             return "MPS Sobel"
+        case .laplacian:
+            return "MPS Laplacian"
         case .gaussianBlur:
             return "MPS GaussianBlur"
         case .gaussianPyramid:
@@ -54,6 +57,15 @@ enum GMPSUnaryImageFilterType {
         case .gaussianPyramid:
             return true
         case .laplacianPyramid:
+            return false
+        default:
+            return false
+        }
+    }
+    
+    var output2Required: Bool {
+        switch self {
+        case .laplacian:
             return false
         default:
             return false

@@ -25,17 +25,19 @@ class GMPSUnaryImageFilter: GImageFilter {
         super.init(context: context, filterType: filterType)
     }
     
-    override func encode(input: inout MTLTexture, output: MTLTexture, commandBuffer: MTLCommandBuffer) {
+    override func encode(input: inout MTLTexture, tempOutput: MTLTexture?, finalOutput: MTLTexture, commandBuffer: MTLCommandBuffer) {
         
         switch type {
         case .sobel:
-            sobel(input, output, commandBuffer)
+            sobel(input, finalOutput, commandBuffer)
+        case .laplacian:
+            laplacian(input, tempOutput, finalOutput, commandBuffer)
         case .gaussianBlur:
-            gaussianBlur(input, output, commandBuffer)
+            gaussianBlur(input, finalOutput, commandBuffer)
         case .gaussianPyramid:
-            gaussianPyramid(&input, output, commandBuffer)
+            gaussianPyramid(&input, finalOutput, commandBuffer)
         case .laplacianPyramid:
-            laplacianPyramid(&input, output, commandBuffer)
+            laplacianPyramid(&input, finalOutput, commandBuffer)
         }
     }
     
@@ -75,6 +77,21 @@ class GMPSUnaryImageFilter: GImageFilter {
     func sobel(_ input: MTLTexture, _ output: MTLTexture, _ commandBuffer: MTLCommandBuffer) {
         let shader = MPSImageSobel(device: context.device)
         shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: output)
+    }
+    
+    func laplacian(_ input: MTLTexture, _ tempOutput: MTLTexture?, _ finalOutput: MTLTexture, _ commandBuffer: MTLCommandBuffer) {
+//        let shader = MPSImageConvolution(device: context.device, kernelWidth: 3, kernelHeight: 3, weights: [1,2,1,2,4,2,1,2,1])
+//        let shader = MPSImageConvolution(device: context.device, kernelWidth: 3, kernelHeight: 3, weights: [0, 1, 0, 1, -4, 1, 0, 1, 0])
+        let shader = MPSImageLaplacian(device: context.device)
+        if let o = tempOutput {
+            let sobel = MPSImageSobel(device: context.device)
+            sobel.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: o)
+            shader.encode(commandBuffer: commandBuffer, sourceTexture: o, destinationTexture: finalOutput)
+        }
+        else {
+            shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: finalOutput)
+        }
+//        _ = shader.encode(commandBuffer: commandBuffer, inPlaceTexture: &output, fallbackCopyAllocator: nil)
     }
     
     func gaussianBlur(_ input: MTLTexture, _ output: MTLTexture, _ commandBuffer: MTLCommandBuffer) {

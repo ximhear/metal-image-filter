@@ -62,6 +62,8 @@ class ImageFilterViewController: UIViewController {
             switch type {
             case .sobel:
                 containerView.isHidden = true
+            case .laplacian:
+                containerView.isHidden = true
             case .gaussianBlur:
                 self.saturationSlider.minimumValue = 1
                 self.saturationSlider.maximumValue = 20

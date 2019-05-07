@@ -30,6 +30,7 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
     }
     var provider: GTextureProvider!
     var internalTexture: MTLTexture?
+    var internalTexture2: MTLTexture?
     let filterType: GImageFilterType
 
     init(functionName: String, context: GContext, filterType: GImageFilterType) {
@@ -69,11 +70,25 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
             internalTexture = inputTexture
         }
         
+        if self.filterType.output2Required == true {
+            if self.internalTexture2 == nil ||
+                self.internalTexture2!.width != inputTexture.width ||
+                self.internalTexture2!.height != inputTexture.height {
+                GZLogFunc("pixel format : \(inputTexture.pixelFormat.rawValue)")
+                GZLogFunc("width : \(inputTexture.width)")
+                GZLogFunc("height : \(inputTexture.height)")
+                let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat, width: inputTexture.width, height: inputTexture.height, mipmapped: self.filterType.outputMipmapped)
+                textureDescriptor.usage = MTLTextureUsage.init(rawValue: MTLTextureUsage.shaderWrite.rawValue | MTLTextureUsage.shaderRead.rawValue)
+                self.internalTexture2 = self.context.device.makeTexture(descriptor: textureDescriptor)
+            }
+        }
+        
         if let commandBuffer = self.context.commandQueue.makeCommandBuffer(), let _ = internalTexture {
             
             let output: MTLTexture = internalTexture!
-            
-            encode(input: &inputTexture, output: output, commandBuffer: commandBuffer)
+            let output2: MTLTexture? = internalTexture2
+
+            encode(input: &inputTexture, tempOutput: output2, finalOutput: output, commandBuffer: commandBuffer)
 
             commandBuffer.commit()
             commandBuffer.waitUntilCompleted()
@@ -86,7 +101,7 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
         GZLogFunc()
     }
     
-    func encode(input: inout MTLTexture, output: MTLTexture, commandBuffer: MTLCommandBuffer) {
+    func encode(input: inout MTLTexture, tempOutput: MTLTexture?, finalOutput: MTLTexture, commandBuffer: MTLCommandBuffer) {
         GZLogFunc("threadExecutionWidth: \(pipeline.threadExecutionWidth)")
         GZLogFunc("maxTotalThreadsPerThreadgroup: \(pipeline.maxTotalThreadsPerThreadgroup)")
         
@@ -97,9 +112,9 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
         let commandEncoder = commandBuffer.makeComputeCommandEncoder()
         commandEncoder?.setComputePipelineState(self.pipeline)
         commandEncoder?.setTexture(input, index: 0)
-        commandEncoder?.setTexture(output, index: 1)
+        commandEncoder?.setTexture(finalOutput, index: 1)
         GZLogFunc("\(input.width), \(input.height)")
-        GZLogFunc("\(output.width), \(output.height)")
+        GZLogFunc("\(finalOutput.width), \(finalOutput.height)")
         self.configureArgumentTable(commandEncoder: commandEncoder!)
         //        if #available(iOS 11.0, *) {
         //            commandEncoder?.dispatchThreads(MTLSizeMake(inputTexture.width, inputTexture.height, 1), threadsPerThreadgroup: threadgroupCounts)

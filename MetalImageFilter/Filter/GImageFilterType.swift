@@ -100,5 +100,15 @@ enum GImageFilterType {
             return false
         }
     }
+    
+    var output2Required: Bool {
+        
+        switch self {
+        case .mpsUnaryImageKernel(let type):
+            return type.output2Required
+        default:
+            return false
+        }
+    }
 }
 
