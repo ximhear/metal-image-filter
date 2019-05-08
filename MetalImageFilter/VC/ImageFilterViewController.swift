@@ -34,6 +34,12 @@ class ImageFilterViewController: UIViewController {
         
         buildFilterGraph(image: self.image)
         
+        changeSliderSetting()
+        self.title = filterType1.name
+        updateImage()
+    }
+    
+    func changeSliderSetting() {
         switch filterType1 {
         case .gaussianBlur2D:
             self.saturationSlider.value = 1
@@ -81,13 +87,9 @@ class ImageFilterViewController: UIViewController {
                 self.saturationSlider.minimumValue = 0
                 self.saturationSlider.maximumValue = Float(self.imageProvider!.texture!.mipmapLevelCount - 1)
                 containerView.isHidden = false
-//                imageView.backgroundColor = .white
+                //                imageView.backgroundColor = .white
             }
-        }
-        self.title = filterType1.name
-        
-        updateImage()
-    }
+        }    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -164,6 +166,7 @@ class ImageFilterViewController: UIViewController {
                 self?.imageChanged(image)
                 self?.image = image
                 self?.buildFilterGraph(image: image)
+                self?.changeSliderSetting()
                 self?.updateImage()
             }
             present(vc, animated: true) {
@@ -182,6 +185,7 @@ extension ImageFilterViewController: UIImagePickerControllerDelegate & UINavigat
             self.imageChanged(image)
             self.image = image
             self.buildFilterGraph(image: image)
+            self.changeSliderSetting()
             self.updateImage()
         }
         dismiss(animated: true, completion: nil)
