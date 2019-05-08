@@ -68,7 +68,7 @@ class ImageFilterViewController: UIViewController {
             case .laplacian:
                 containerView.isHidden = true
             case .gaussianBlur:
-                self.saturationSlider.minimumValue = 1
+                self.saturationSlider.minimumValue = 0
                 self.saturationSlider.maximumValue = 20
                 containerView.isHidden = false
             case .gaussianPyramid:
