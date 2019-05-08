@@ -33,7 +33,7 @@ class MasterViewController: UITableViewController {
         objects.append(.mpsUnaryImageKernel(type: .laplacianPyramid))
         // Do any additional setup after loading the view.
         
-        image = UIImage(named: "autumn")
+        image = UIImage(named: "lenna")
 
         if let split = splitViewController {
             let controllers = split.viewControllers

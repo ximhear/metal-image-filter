@@ -47,7 +47,7 @@ class GMPSUnaryImageFilter: GImageFilter {
         if filterType.outputMipmapped == false {
             return super.texture
         }
-        
+
         guard let texture = super.texture else {
             return nil
         }
@@ -62,10 +62,10 @@ class GMPSUnaryImageFilter: GImageFilter {
         let bytesPerPixel = 4
         let bytesPerRow = bytesPerPixel * width
         texture.getBytes(rawData, bytesPerRow: bytesPerRow, from: MTLRegionMake2D(0, 0, width, height), mipmapLevel: mipmapLevel)
-        
+
         let textureDescriptor: MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm, width: width, height: height, mipmapped: false)
         textureDescriptor.usage = .shaderRead
-        
+
         let t = context.device.makeTexture(descriptor: textureDescriptor)
         let region = MTLRegionMake2D(0, 0, width, height)
         t?.replace(region: region, mipmapLevel: 0, withBytes: rawData, bytesPerRow: bytesPerRow)
@@ -114,23 +114,27 @@ class GMPSUnaryImageFilter: GImageFilter {
     
     func laplacianPyramid(_ input: inout MTLTexture, _ tempOutput: MTLTexture?, _ finalOutput: MTLTexture, _ commandBuffer: MTLCommandBuffer) {
         
-        let shader = MPSImageLaplacianPyramid(device: context.device)// , centerWeight: 0.375)
-//        shader.laplacianBias = 0.5
-        GZLogFunc(shader.laplacianBias)
-        GZLogFunc(shader.laplacianScale)
+        let shader = MPSImageLaplacianPyramidSubtract(device: context.device)//, kernelWidth: 3, kernelHeight: 3, weights: [0, 1, 0, 1, -4, 1, 0, 1, 0])
+//        let shader = MPSImageLaplacianPyramidSubtract(device: context.device, centerWeight: 0.375)
+//        shader.edgeMode = .clamp
+//        shader.laplacianBias = 0.1
+//        shader.laplacianScale = 1
+//        GZLogFunc(shader.laplacianBias)
+//        GZLogFunc(shader.laplacianScale)
+        
 
-        if let o = tempOutput {
-            
-            shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: o)
-            let threshold = MPSImageThresholdBinary(device: context.device, thresholdValue: 0.02, maximumValue: 1, linearGrayColorTransform: nil)
-            threshold.encode(commandBuffer: commandBuffer, sourceTexture: o, destinationTexture: finalOutput)
-        }
-        else {
-            let gaussian = MPSImageGaussianPyramid(device: context.device , centerWeight: 0.375)
-            _ = gaussian.encode(commandBuffer: commandBuffer, inPlaceTexture: &input, fallbackCopyAllocator: nil)
-            
-//            _ = shader.encode(commandBuffer: commandBuffer, inPlaceTexture: &input, fallbackCopyAllocator: nil)
-            shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: finalOutput)
-        }
+        let gaussian = MPSImageGaussianPyramid(device: context.device)// , centerWeight: 0.375)
+        _ = gaussian.encode(commandBuffer: commandBuffer, inPlaceTexture: &input, fallbackCopyAllocator: nil)
+
+//        let blitEncoder = commandBuffer.makeBlitCommandEncoder()!
+//        blitEncoder.copy(from: input, sourceSlice: 0, sourceLevel: 0,
+//                         sourceOrigin: MTLOrigin(x: 0, y: 0, z: 0),
+//                         sourceSize: MTLSize(width: input.width, height: input.height, depth: 1),
+//                         to: finalOutput,
+//                         destinationSlice: 0, destinationLevel: 0, destinationOrigin: MTLOrigin(x: 0, y: 0, z: 0))
+//        blitEncoder.endEncoding()
+
+        shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: finalOutput)
+        GZLogFunc(finalOutput.mipmapLevelCount)
     }
 }

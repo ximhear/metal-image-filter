@@ -62,8 +62,22 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
                 GZLogFunc("width : \(inputTexture.width)")
                 GZLogFunc("height : \(inputTexture.height)")
                 let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat, width: inputTexture.width, height: inputTexture.height, mipmapped: self.filterType.outputMipmapped)
-                textureDescriptor.usage = MTLTextureUsage.init(rawValue: MTLTextureUsage.shaderWrite.rawValue | MTLTextureUsage.shaderRead.rawValue)
+                textureDescriptor.usage = [.shaderRead, .shaderWrite, .pixelFormatView]
                 self.internalTexture = self.context.device.makeTexture(descriptor: textureDescriptor)
+                
+//                let width = inputTexture.width
+//                let height = inputTexture.height
+//                let rawData = UnsafeMutableRawPointer.allocate(byteCount: width * height * 4, alignment: 1)// UnsafeMutablePointer<UInt8>.allocate(capacity: width * height * 4)
+//                let bytesPerPixel = 4
+//                let bytesPerRow = bytesPerPixel * width
+//                inputTexture.getBytes(rawData, bytesPerRow: bytesPerRow, from: MTLRegionMake2D(0, 0, width, height), mipmapLevel: 0)
+//                
+//                let region = MTLRegionMake2D(0, 0, width, height)
+//                internalTexture?.replace(region: region, mipmapLevel: 0, withBytes: rawData, bytesPerRow: bytesPerRow)
+//                let aa = internalTexture
+//                GZLogFunc(aa)
+//                rawData.deallocate()
+
             }
         }
         else {
@@ -78,7 +92,7 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
                 GZLogFunc("width : \(inputTexture.width)")
                 GZLogFunc("height : \(inputTexture.height)")
                 let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: inputTexture.pixelFormat, width: inputTexture.width, height: inputTexture.height, mipmapped: self.filterType.outputMipmapped)
-                textureDescriptor.usage = MTLTextureUsage.init(rawValue: MTLTextureUsage.shaderWrite.rawValue | MTLTextureUsage.shaderRead.rawValue)
+                textureDescriptor.usage = [.shaderRead, .shaderWrite, .pixelFormatView]
                 self.internalTexture2 = self.context.device.makeTexture(descriptor: textureDescriptor)
             }
         }

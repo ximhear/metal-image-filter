@@ -79,7 +79,7 @@ class ImageFilterViewController: UIViewController {
                 self.saturationSlider.minimumValue = 0
                 self.saturationSlider.maximumValue = Float(self.imageProvider!.texture!.mipmapLevelCount - 1)
                 containerView.isHidden = false
-                imageView.backgroundColor = .white
+//                imageView.backgroundColor = .white
             }
         }
         self.title = filterType.name
