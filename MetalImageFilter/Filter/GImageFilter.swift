@@ -9,6 +9,7 @@
 import Foundation
 import Metal
 import MetalPerformanceShaders
+import UIKit
 
 protocol GFilterValueSetter {
     
@@ -27,6 +28,34 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
             self.applyFilter()
         }
         return self.internalTexture
+    }
+    
+    var image: UIImage? {
+        
+        guard let texture = self.texture else {
+            return nil
+        }
+        let mipmapLevel = 0
+        let divider = pow(2, Double(mipmapLevel))
+        let width = Int(max(1, floor(Double(texture.width) / divider)))
+        let height = Int(max(1, floor(Double(texture.height) / divider)))
+        GZLogFunc(width)
+        GZLogFunc(height)
+        
+        let rawData = UnsafeMutableRawPointer.allocate(byteCount: width * height * 4, alignment: 1)// UnsafeMutablePointer<UInt8>.allocate(capacity: width * height * 4)
+        let bytesPerPixel = 4
+        let bytesPerRow = bytesPerPixel * width
+        texture.getBytes(rawData, bytesPerRow: bytesPerRow, from: MTLRegionMake2D(0, 0, width, height), mipmapLevel: mipmapLevel)
+        
+        let textureDescriptor: MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm, width: width, height: height, mipmapped: false)
+        textureDescriptor.usage = .shaderRead
+        
+        let t = context.device.makeTexture(descriptor: textureDescriptor)
+        let region = MTLRegionMake2D(0, 0, width, height)
+        t?.replace(region: region, mipmapLevel: 0, withBytes: rawData, bytesPerRow: bytesPerRow)
+        rawData.deallocate()
+        
+        return UIImage(texture: t!)
     }
     var provider: GTextureProvider!
     var internalTexture: MTLTexture?

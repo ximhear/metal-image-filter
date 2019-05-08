@@ -41,11 +41,11 @@ class GMPSUnaryImageFilter: GImageFilter {
         }
     }
     
-    override var texture: MTLTexture? {
-        
+    override var image: UIImage? {
+
         GZLogFunc(_value)
         if filterType.outputMipmapped == false {
-            return super.texture
+            return super.image
         }
 
         guard let texture = super.texture else {
@@ -71,7 +71,7 @@ class GMPSUnaryImageFilter: GImageFilter {
         t?.replace(region: region, mipmapLevel: 0, withBytes: rawData, bytesPerRow: bytesPerRow)
         rawData.deallocate()
 
-        return t!
+        return UIImage(texture: t!)
     }
     
     func sobel(_ input: MTLTexture, _ output: MTLTexture, _ commandBuffer: MTLCommandBuffer) {
@@ -123,8 +123,8 @@ class GMPSUnaryImageFilter: GImageFilter {
 //        GZLogFunc(shader.laplacianScale)
         
 
-        let gaussian = MPSImageGaussianPyramid(device: context.device)// , centerWeight: 0.375)
-        _ = gaussian.encode(commandBuffer: commandBuffer, inPlaceTexture: &input, fallbackCopyAllocator: nil)
+//        let gaussian = MPSImageGaussianPyramid(device: context.device)// , centerWeight: 0.375)
+//        _ = gaussian.encode(commandBuffer: commandBuffer, inPlaceTexture: &input, fallbackCopyAllocator: nil)
 
 //        let blitEncoder = commandBuffer.makeBlitCommandEncoder()!
 //        blitEncoder.copy(from: input, sourceSlice: 0, sourceLevel: 0,

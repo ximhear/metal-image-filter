@@ -17,8 +17,10 @@ class ImageFilterViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     
     var imageProvider: GTextureProvider?
-    var imageFilter: GImageFilter?
-    var filterType: GImageFilterType = .mpsUnaryImageKernel(type: .laplacianPyramid)
+    var imageFilter0: GImageFilter?
+    var imageFilter1: GImageFilter?
+    var filterType0: GImageFilterType = .mpsUnaryImageKernel(type: .gaussianPyramid)
+    var filterType1: GImageFilterType = .mpsUnaryImageKernel(type: .laplacianPyramid)
     var imageChanged: (_ image: UIImage) -> Void = {_ in }
     var image: UIImage!
     
@@ -32,7 +34,7 @@ class ImageFilterViewController: UIViewController {
         
         buildFilterGraph(image: self.image)
         
-        switch filterType {
+        switch filterType1 {
         case .gaussianBlur2D:
             self.saturationSlider.value = 1
             self.saturationSlider.minimumValue = 1
@@ -82,7 +84,7 @@ class ImageFilterViewController: UIViewController {
 //                imageView.backgroundColor = .white
             }
         }
-        self.title = filterType.name
+        self.title = filterType1.name
         
         updateImage()
     }
@@ -104,10 +106,12 @@ class ImageFilterViewController: UIViewController {
     func buildFilterGraph(image: UIImage) {
         let context = GContext()
         
-        self.imageProvider = MainBundleTextureProvider.init(image: image, context: context, mipmapped: filterType.inputMipmapped)
+        self.imageProvider = MainBundleTextureProvider.init(image: image, context: context, mipmapped: filterType0.inputMipmapped)
 
-        self.imageFilter = filterType.createImageFilter(context: context)
-        self.imageFilter?.provider = self.imageProvider!
+        self.imageFilter0 = filterType0.createImageFilter(context: context)
+        self.imageFilter0?.provider = self.imageProvider!
+        self.imageFilter1 = filterType1.createImageFilter(context: context)
+        self.imageFilter1?.provider = self.imageFilter0!
     }
     
     func updateImage() {
@@ -126,12 +130,12 @@ class ImageFilterViewController: UIViewController {
                 return
             }
             
-            let filter: GImageFilter? = welf.imageFilter
+            let filter: GImageFilter? = welf.imageFilter1
             filter?.setValue(saturation)
             
             let texture = filter?.texture
             GZLogFunc("mipmap : \(texture?.mipmapLevelCount)")
-            let image = UIImage.init(texture: texture)
+            let image = filter?.image
             
             DispatchQueue.main.async {[weak self] in
                 self?.imageView.image = image
