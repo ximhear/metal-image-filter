@@ -26,7 +26,7 @@ class MainBundleTextureProvider: GTextureProvider {
         let bytesPerPixel = 4
         let bytesPerRow = bytesPerPixel * width
         let bitsPerComponent = 8
-        let bitmmapContext = CGContext.init(data: rawData, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: space, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue |  CGImageByteOrderInfo.order32Big.rawValue)
+        let bitmmapContext = CGContext.init(data: rawData, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: space, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue | CGImageByteOrderInfo.order32Big.rawValue)
 //        bitmmapContext?.translateBy(x: 0, y: CGFloat(height))
 //        bitmmapContext?.scaleBy(x: 1, y: -1)
         bitmmapContext?.draw(imageRef!, in: CGRect.init(x: 0, y: 0, width: CGFloat(width), height: CGFloat(height)))
