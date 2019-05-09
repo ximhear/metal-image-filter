@@ -19,7 +19,7 @@ class ImageFilterViewController: UIViewController {
     var imageProvider: GTextureProvider?
     var imageFilter0: GImageFilter?
     var imageFilter1: GImageFilter?
-    var filterType0: GImageFilterType = .mpsUnaryImageKernel(type: .gaussianPyramid)
+    var filterType0: GImageFilterType?
     var filterType1: GImageFilterType = .mpsUnaryImageKernel(type: .laplacianPyramid)
     var imageChanged: (_ image: UIImage) -> Void = {_ in }
     var image: UIImage!
@@ -33,7 +33,6 @@ class ImageFilterViewController: UIViewController {
         imageView.backgroundColor = .blue
         
         buildFilterGraph(image: self.image)
-        
         changeSliderSetting()
         self.title = filterType1.name
         updateImage()
@@ -87,9 +86,10 @@ class ImageFilterViewController: UIViewController {
                 self.saturationSlider.minimumValue = 0
                 self.saturationSlider.maximumValue = Float(self.imageProvider!.texture!.mipmapLevelCount - 1)
                 containerView.isHidden = false
-                //                imageView.backgroundColor = .white
+                imageView.backgroundColor = .white
             }
-        }    }
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -108,12 +108,29 @@ class ImageFilterViewController: UIViewController {
     func buildFilterGraph(image: UIImage) {
         let context = GContext()
         
-        self.imageProvider = MainBundleTextureProvider.init(image: image, context: context, mipmapped: filterType0.inputMipmapped)
-
-        self.imageFilter0 = filterType0.createImageFilter(context: context)
-        self.imageFilter0?.provider = self.imageProvider!
-        self.imageFilter1 = filterType1.createImageFilter(context: context)
-        self.imageFilter1?.provider = self.imageFilter0!
+        switch filterType1 {
+        case .mpsUnaryImageKernel(let type):
+            switch type {
+            case .laplacianPyramid:
+                self.filterType0 = .mpsUnaryImageKernel(type: .gaussianPyramid)
+            default:
+                break
+            }
+        default:
+            break
+        }
+        if let filter = self.filterType0 {
+            self.imageProvider = MainBundleTextureProvider.init(image: image, context: context, mipmapped: filter.inputMipmapped)
+            self.imageFilter0 = filter.createImageFilter(context: context)
+            self.imageFilter0?.provider = self.imageProvider!
+            self.imageFilter1 = filterType1.createImageFilter(context: context)
+            self.imageFilter1?.provider = self.imageFilter0!
+        }
+        else {
+            self.imageProvider = MainBundleTextureProvider.init(image: image, context: context, mipmapped: filterType1.inputMipmapped)
+            self.imageFilter1 = filterType1.createImageFilter(context: context)
+            self.imageFilter1?.provider = self.imageProvider!
+        }
     }
     
     func updateImage() {

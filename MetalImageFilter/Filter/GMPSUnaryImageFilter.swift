@@ -117,7 +117,7 @@ class GMPSUnaryImageFilter: GImageFilter {
         let shader = MPSImageLaplacianPyramidSubtract(device: context.device)//, kernelWidth: 3, kernelHeight: 3, weights: [0, 1, 0, 1, -4, 1, 0, 1, 0])
 //        let shader = MPSImageLaplacianPyramidSubtract(device: context.device, centerWeight: 0.375)
 //        shader.edgeMode = .clamp
-//        shader.laplacianBias = 0.1
+//        shader.laplacianBias = 0.5
 //        shader.laplacianScale = 1
 //        GZLogFunc(shader.laplacianBias)
 //        GZLogFunc(shader.laplacianScale)
@@ -133,8 +133,34 @@ class GMPSUnaryImageFilter: GImageFilter {
 //                         to: finalOutput,
 //                         destinationSlice: 0, destinationLevel: 0, destinationOrigin: MTLOrigin(x: 0, y: 0, z: 0))
 //        blitEncoder.endEncoding()
+        
+//        changeMapMap(level: 0, texture: input, color: .white)
+        changeMapMap(level: 2, texture: input, color: .red)
+        changeMapMap(level: 3, texture: input, color: .red)
+//        changeMapMap(level: 5, texture: input, color: .green)
+//        changeMapMap(level: 7, texture: input, color: .blue)
 
         shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: finalOutput)
         GZLogFunc(finalOutput.mipmapLevelCount)
+    }
+    
+    func changeMapMap(level: Int, texture: MTLTexture, color: UIColor) {
+        let mipmapLevel: Double = Double(level)
+        let image = UIImage(color: color)
+        let imageRef = image.cgImage
+        let divider = pow(2, Double(mipmapLevel))
+        let width = Int(max(1, floor(Double(texture.width) / divider)))
+        let height = Int(max(1, floor(Double(texture.height) / divider)))
+        let space = CGColorSpaceCreateDeviceRGB()
+        let rawData = UnsafeMutableRawPointer.allocate(byteCount: width * height * 4, alignment: 1)
+        let bytesPerPixel = 4
+        let bytesPerRow = bytesPerPixel * width
+        let bitsPerComponent = 8
+        let bitmmapContext = CGContext.init(data: rawData, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: space, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue |  CGImageByteOrderInfo.order32Big.rawValue)
+        bitmmapContext?.draw(imageRef!, in: CGRect.init(x: 0, y: 0, width: CGFloat(width), height: CGFloat(height)))
+        
+        let region = MTLRegionMake2D(0, 0, width, height)
+        texture.replace(region: region, mipmapLevel: Int(mipmapLevel), withBytes: rawData, bytesPerRow: bytesPerRow)
+        rawData.deallocate()
     }
 }
