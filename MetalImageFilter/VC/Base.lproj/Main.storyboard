@@ -129,10 +129,18 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YO5-D8-6SZ">
+                                        <rect key="frame" x="129" y="8" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.51000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="bkF-ci-Qt9" secondAttribute="bottom" constant="8" id="1On-a4-syy"/>
+                                    <constraint firstItem="YO5-D8-6SZ" firstAttribute="top" secondItem="YLz-mo-5nz" secondAttribute="top" constant="8" id="4EL-nD-3Bg"/>
+                                    <constraint firstItem="YO5-D8-6SZ" firstAttribute="centerX" secondItem="YLz-mo-5nz" secondAttribute="centerX" id="7QT-iM-eL3"/>
                                     <constraint firstAttribute="trailing" secondItem="bkF-ci-Qt9" secondAttribute="trailing" constant="8" id="Me2-uQ-fdG"/>
                                     <constraint firstItem="hUs-Kp-hct" firstAttribute="leading" secondItem="YLz-mo-5nz" secondAttribute="leading" constant="8" id="OmO-ud-Cx5"/>
                                     <constraint firstItem="hUs-Kp-hct" firstAttribute="centerY" secondItem="bkF-ci-Qt9" secondAttribute="centerY" id="Rkb-fe-7Cz"/>
@@ -173,6 +181,7 @@
                         <outlet property="containerView" destination="YLz-mo-5nz" id="YjD-LA-mKt"/>
                         <outlet property="imageView" destination="kLI-bz-Vm7" id="PrI-fH-bmi"/>
                         <outlet property="saturationSlider" destination="bkF-ci-Qt9" id="Ofb-Fc-SNu"/>
+                        <outlet property="valueLabel" destination="YO5-D8-6SZ" id="j4S-99-KlL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="52e-Xs-55w" sceneMemberID="firstResponder"/>

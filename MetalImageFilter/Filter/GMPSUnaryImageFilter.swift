@@ -135,12 +135,21 @@ class GMPSUnaryImageFilter: GImageFilter {
 //        blitEncoder.endEncoding()
         
 //        changeMapMap(level: 0, texture: input, color: .white)
-        changeMapMap(level: 2, texture: input, color: .red)
-        changeMapMap(level: 3, texture: input, color: .red)
-//        changeMapMap(level: 5, texture: input, color: .green)
-//        changeMapMap(level: 7, texture: input, color: .blue)
+//        changeMapMap(level: 1, texture: input, color: .white)
+//        changeMapMap(level: 2, texture: input, color: .red)
+//        changeMapMap(level: 3, texture: input, color: .red)
+//        changeMapMap(level: 4, texture: input, color: .green)
+//        changeMapMap(level: 5, texture: input, color: .blue)
 
-        shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: finalOutput)
+        if let to = tempOutput {
+            shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: to)
+            let shader1 = MPSImageLaplacian(device: context.device)
+            shader1.encode(commandBuffer: commandBuffer, sourceTexture: to, destinationTexture: finalOutput)
+        }
+        else {
+            shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: finalOutput)
+        }
+        
         GZLogFunc(finalOutput.mipmapLevelCount)
     }
     

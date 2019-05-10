@@ -15,7 +15,8 @@ class ImageFilterViewController: UIViewController {
     @IBOutlet weak var imageView:  UIImageView!
     @IBOutlet weak var saturationSlider:  UISlider!
     @IBOutlet weak var containerView: UIView!
-    
+    @IBOutlet weak var valueLabel: UILabel!
+
     var imageProvider: GTextureProvider?
     var imageFilter0: GImageFilter?
     var imageFilter1: GImageFilter?
@@ -102,6 +103,9 @@ class ImageFilterViewController: UIViewController {
     
     @IBAction func saturationChanged(_ sender: Any) {
         
+        let saturation: Float = self.saturationSlider.value
+
+        self.valueLabel.text = "\(saturation)"
         updateImage()
     }
     
