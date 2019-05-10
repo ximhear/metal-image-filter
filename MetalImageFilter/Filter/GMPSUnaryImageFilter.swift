@@ -102,6 +102,7 @@ class GMPSUnaryImageFilter: GImageFilter {
     
     func gaussianBlur(_ input: MTLTexture, _ output: MTLTexture, _ commandBuffer: MTLCommandBuffer) {
         let shader = MPSImageGaussianBlur(device: context.device, sigma: _value)
+        shader.edgeMode = .clamp
         shader.encode(commandBuffer: commandBuffer, sourceTexture: input, destinationTexture: output)
     }
     

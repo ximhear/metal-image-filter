@@ -198,8 +198,13 @@ kernel void oneStepLaplacianPyramid(texture2d<float, access::read> inTexture0 [[
     else {
         b = 0;
     }
-    float4 outColor(r, g, b, 1);
-    
+    float alpha = 1;
+    if (r == 0 && g == 0 && b == 0) {
+        alpha = 0;
+    }
+    float4 outColor(r, g, b, alpha);
+    outTexture.write(outColor, gid);
+
 //    float l0 = dot(inColor0.rgb - inColor1.rgb, float3(0.2126, 0.7152, 0.0722));
 //    if (l0 > limit) {
 //        l0 = 1;
@@ -207,8 +212,7 @@ kernel void oneStepLaplacianPyramid(texture2d<float, access::read> inTexture0 [[
 //    else {
 //        l0 = 0;
 //    }
-//    float4 outColor(l0, l0, l0, 1);
-
-    outTexture.write(outColor, gid);
+//    float4 outColor(l0, l0, l0, l0);
+//    outTexture.write(outColor, gid);
 }
 

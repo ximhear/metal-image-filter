@@ -96,7 +96,7 @@ class ImageFilterViewController: UIViewController {
                 self.saturationSlider.minimumValue = 0
                 self.saturationSlider.maximumValue = Float(self.imageProvider!.availableMipmapLevelCount - 1)
                 containerView.isHidden = false
-                imageView.backgroundColor = .white
+//                imageView.backgroundColor = .white
             }
         }
     }
