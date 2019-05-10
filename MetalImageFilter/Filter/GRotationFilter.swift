@@ -40,8 +40,8 @@ class GRotationFilter: GImageFilter {
     
     override func configureArgumentTable(commandEncoder: MTLComputeCommandEncoder) {
         
-        uniforms[0].width = Float(self.provider.texture!.width)
-        uniforms[0].height = Float(self.provider.texture!.height)
+        uniforms[0].width = Float(self.provider0.texture!.width)
+        uniforms[0].height = Float(self.provider0.texture!.height)
         uniforms[0].factor = _factor
         commandEncoder.setBuffer(self.uniformBuffer, offset: 0, index: 0)
     }

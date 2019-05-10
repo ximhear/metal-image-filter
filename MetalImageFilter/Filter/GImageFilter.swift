@@ -57,7 +57,8 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
         
         return UIImage(texture: t!)
     }
-    var provider: GTextureProvider!
+    var provider0: GTextureProvider!
+    var provider1: GTextureProvider!
     var internalTexture: MTLTexture?
     var internalTexture2: MTLTexture?
     let filterType: GImageFilterType
@@ -81,7 +82,7 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
     }
     
     func applyFilter() {
-        var inputTexture = self.provider.texture!
+        var inputTexture = self.provider0.texture!
         GZLogFunc(inputTexture)
         if self.filterType.inPlaceTexture == false {
             if self.internalTexture == nil ||
@@ -131,7 +132,16 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
             let output: MTLTexture = internalTexture!
             let output2: MTLTexture? = internalTexture2
 
-            encode(input: &inputTexture, tempOutput: output2, finalOutput: output, commandBuffer: commandBuffer)
+            if case GImageFilterType.binaryImageKernel = filterType {
+                if let input1 = self.provider1.texture {
+                    GZLogFunc("\(inputTexture.width) x \(inputTexture.height)")
+                    GZLogFunc("\(input1.width) x \(input1.height)")
+                    encode(input0: inputTexture, input1: input1, finalOutput: output, commandBuffer: commandBuffer)
+                }
+            }
+            else {
+                encode(input: &inputTexture, tempOutput: output2, finalOutput: output, commandBuffer: commandBuffer)
+            }
 
             commandBuffer.commit()
             commandBuffer.waitUntilCompleted()
@@ -143,7 +153,27 @@ class GImageFilter: GTextureProvider, GTextureConsumer, GFilterValueSetter {
         }
         GZLogFunc()
     }
-    
+
+    func encode(input0: MTLTexture, input1: MTLTexture, finalOutput: MTLTexture, commandBuffer: MTLCommandBuffer) {
+        GZLogFunc("threadExecutionWidth: \(pipeline.threadExecutionWidth)")
+        GZLogFunc("maxTotalThreadsPerThreadgroup: \(pipeline.maxTotalThreadsPerThreadgroup)")
+        
+        let threadgroupCounts = MTLSizeMake(pipeline.threadExecutionWidth, pipeline.maxTotalThreadsPerThreadgroup/pipeline.threadExecutionWidth, 1)
+        //        let threadgroupCounts = MTLSizeMake(8, 8, 1)
+        let threadgroups = MTLSizeMake(input0.width / threadgroupCounts.width, input0.height / threadgroupCounts.height, 1)
+        
+        let commandEncoder = commandBuffer.makeComputeCommandEncoder()
+        commandEncoder?.setComputePipelineState(self.pipeline)
+        commandEncoder?.setTexture(input0, index: 0)
+        commandEncoder?.setTexture(input1, index: 1)
+        commandEncoder?.setTexture(finalOutput, index: 2)
+        GZLogFunc("\(input0.width), \(input0.height)")
+        GZLogFunc("\(finalOutput.width), \(finalOutput.height)")
+        self.configureArgumentTable(commandEncoder: commandEncoder!)
+        commandEncoder?.dispatchThreadgroups(threadgroups, threadsPerThreadgroup: threadgroupCounts)
+        commandEncoder?.endEncoding()
+    }
+
     func encode(input: inout MTLTexture, tempOutput: MTLTexture?, finalOutput: MTLTexture, commandBuffer: MTLCommandBuffer) {
         GZLogFunc("threadExecutionWidth: \(pipeline.threadExecutionWidth)")
         GZLogFunc("maxTotalThreadsPerThreadgroup: \(pipeline.maxTotalThreadsPerThreadgroup)")

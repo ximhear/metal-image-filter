@@ -167,4 +167,48 @@ kernel void invert(texture2d<float, access::read> inTexture [[texture(0)]],
     outTexture.write(outColor, gid);
 }
 
+kernel void oneStepLaplacianPyramid(texture2d<float, access::read> inTexture0 [[texture(0)]],
+                   texture2d<float, access::read> inTexture1 [[texture(1)]],
+                   texture2d<float, access::write> outTexture [[texture(2)]],
+                   uint2 gid [[thread_position_in_grid]])
+{
+    float4 inColor0 = inTexture0.read(gid);
+    float4 inColor1 = inTexture1.read(gid);
+
+    float limit = 0.01;
+
+    float r = inColor0.r - inColor1.r;
+    float g = inColor0.g - inColor1.g;
+    float b = inColor0.b - inColor1.b;
+    if (r > limit) {
+        r = 1;
+    }
+    else {
+        r = 0;
+    }
+    if (g > limit) {
+        g = 1;
+    }
+    else {
+        g = 0;
+    }
+    if (b > limit) {
+        b = 1;
+    }
+    else {
+        b = 0;
+    }
+    float4 outColor(r, g, b, 1);
+    
+//    float l0 = dot(inColor0.rgb - inColor1.rgb, float3(0.2126, 0.7152, 0.0722));
+//    if (l0 > limit) {
+//        l0 = 1;
+//    }
+//    else {
+//        l0 = 0;
+//    }
+//    float4 outColor(l0, l0, l0, 1);
+
+    outTexture.write(outColor, gid);
+}
 

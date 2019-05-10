@@ -30,6 +30,8 @@
 		ECA813FA225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813F0225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift */; };
 		ECA813FB225B9C3800AFBE4E /* UIImage-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813F1225B9C3800AFBE4E /* UIImage-extension.swift */; };
 		ECA813FD225B9CD500AFBE4E /* ImageFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA813FC225B9CD500AFBE4E /* ImageFilterViewController.swift */; };
+		ECF032EF2285D4D90045D3A0 /* BnaryImageFilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF032EE2285D4D90045D3A0 /* BnaryImageFilterType.swift */; };
+		ECF032F12285D6200045D3A0 /* BinaryImageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF032F02285D6200045D3A0 /* BinaryImageFilter.swift */; };
 		ECF4E43C226E1BFA00468A0F /* GLuminanceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E43B226E1BFA00468A0F /* GLuminanceFilter.swift */; };
 		ECF4E43E226E205C00468A0F /* GNormalMapFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E43D226E205C00468A0F /* GNormalMapFilter.swift */; };
 		ECF4E444226E319800468A0F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF4E441226E319700468A0F /* VideoViewController.swift */; };
@@ -66,6 +68,8 @@
 		ECA813F0225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSaturationAdjustmentFilter.swift; sourceTree = "<group>"; };
 		ECA813F1225B9C3800AFBE4E /* UIImage-extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage-extension.swift"; sourceTree = "<group>"; };
 		ECA813FC225B9CD500AFBE4E /* ImageFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFilterViewController.swift; sourceTree = "<group>"; };
+		ECF032EE2285D4D90045D3A0 /* BnaryImageFilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnaryImageFilterType.swift; sourceTree = "<group>"; };
+		ECF032F02285D6200045D3A0 /* BinaryImageFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryImageFilter.swift; sourceTree = "<group>"; };
 		ECF4E43B226E1BFA00468A0F /* GLuminanceFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLuminanceFilter.swift; sourceTree = "<group>"; };
 		ECF4E43D226E205C00468A0F /* GNormalMapFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GNormalMapFilter.swift; sourceTree = "<group>"; };
 		ECF4E441226E319700468A0F /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
@@ -111,10 +115,12 @@
 			children = (
 				EC65920A2263AA750088B28E /* GImageFilterType.swift */,
 				EC216EFD2272864000EB48A6 /* GMPSUnaryImageFilterType.swift */,
+				ECF032EE2285D4D90045D3A0 /* BnaryImageFilterType.swift */,
 				ECA813EC225B9C3700AFBE4E /* GContext.swift */,
 				ECA813ED225B9C3700AFBE4E /* MainBundleTextureProvider.swift */,
 				ECA813EF225B9C3800AFBE4E /* GImageFilter.swift */,
 				EC216EFB22727D5E00EB48A6 /* GMPSUnaryImageFilter.swift */,
+				ECF032F02285D6200045D3A0 /* BinaryImageFilter.swift */,
 				ECA813EB225B9C3700AFBE4E /* GGaussianBlur2DFilter.swift */,
 				ECA813E9225B9C3700AFBE4E /* GRotationFilter.swift */,
 				ECA813F0225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift */,
@@ -297,11 +303,13 @@
 				ECF4E446226E319800468A0F /* UIView+Border.swift in Sources */,
 				ECA813FA225B9C3800AFBE4E /* GSaturationAdjustmentFilter.swift in Sources */,
 				ECA813F2225B9C3800AFBE4E /* Shaders.metal in Sources */,
+				ECF032F12285D6200045D3A0 /* BinaryImageFilter.swift in Sources */,
 				ECA813FB225B9C3800AFBE4E /* UIImage-extension.swift in Sources */,
 				ECF4E444226E319800468A0F /* VideoViewController.swift in Sources */,
 				ECA813F4225B9C3800AFBE4E /* GZLog.swift in Sources */,
 				ECF4E43C226E1BFA00468A0F /* GLuminanceFilter.swift in Sources */,
 				ECA813F3225B9C3800AFBE4E /* GRotationFilter.swift in Sources */,
+				ECF032EF2285D4D90045D3A0 /* BnaryImageFilterType.swift in Sources */,
 				ECA813F6225B9C3800AFBE4E /* GContext.swift in Sources */,
 				ECA813D7225B98AA00AFBE4E /* MasterViewController.swift in Sources */,
 				ECA813F8225B9C3800AFBE4E /* GTextureProvider.swift in Sources */,

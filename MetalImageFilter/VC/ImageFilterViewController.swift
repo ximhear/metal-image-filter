@@ -21,7 +21,7 @@ class ImageFilterViewController: UIViewController {
     var imageFilter0: GImageFilter?
     var imageFilter1: GImageFilter?
     var filterType0: GImageFilterType?
-    var filterType1: GImageFilterType = .mpsUnaryImageKernel(type: .laplacianPyramid)
+    var filterType1: GImageFilterType = .binaryImageKernel(type: .oneStepLaplacianPyramid)
     var imageChanged: (_ image: UIImage) -> Void = {_ in }
     var image: UIImage!
     
@@ -89,6 +89,15 @@ class ImageFilterViewController: UIViewController {
                 containerView.isHidden = false
                 imageView.backgroundColor = .white
             }
+        case .binaryImageKernel(let type):
+            switch type {
+            case .oneStepLaplacianPyramid:
+                self.saturationSlider.value = 0
+                self.saturationSlider.minimumValue = 0
+                self.saturationSlider.maximumValue = Float(self.imageProvider!.availableMipmapLevelCount - 1)
+                containerView.isHidden = false
+                imageView.backgroundColor = .white
+            }
         }
     }
 
@@ -126,14 +135,30 @@ class ImageFilterViewController: UIViewController {
         if let filter = self.filterType0 {
             self.imageProvider = MainBundleTextureProvider.init(image: image, context: context, mipmapped: filter.inputMipmapped)
             self.imageFilter0 = filter.createImageFilter(context: context)
-            self.imageFilter0?.provider = self.imageProvider!
+            self.imageFilter0?.provider0 = self.imageProvider!
             self.imageFilter1 = filterType1.createImageFilter(context: context)
-            self.imageFilter1?.provider = self.imageFilter0!
+            self.imageFilter1?.provider0 = self.imageFilter0!
         }
         else {
-            self.imageProvider = MainBundleTextureProvider.init(image: image, context: context, mipmapped: filterType1.inputMipmapped)
-            self.imageFilter1 = filterType1.createImageFilter(context: context)
-            self.imageFilter1?.provider = self.imageProvider!
+            if case GImageFilterType.binaryImageKernel = self.filterType1 {
+                self.imageProvider = MainBundleTextureProvider.init(image: image, context: context, mipmapped: filterType1.inputMipmapped)
+                
+                self.imageFilter0 = GImageFilterType.mpsUnaryImageKernel(type: .gaussianBlur).createImageFilter(context: context)
+                self.imageFilter0?.provider0 = self.imageProvider!
+
+                let imageFilter2 = GImageFilterType.mpsUnaryImageKernel(type: .gaussianBlur).createImageFilter(context: context)
+                imageFilter2!.provider0 = self.imageProvider!
+
+
+                self.imageFilter1 = filterType1.createImageFilter(context: context)
+                self.imageFilter1?.provider0 = imageFilter0!
+                self.imageFilter1?.provider1 = imageFilter2!
+            }
+            else {
+                self.imageProvider = MainBundleTextureProvider.init(image: image, context: context, mipmapped: filterType1.inputMipmapped)
+                self.imageFilter1 = filterType1.createImageFilter(context: context)
+                self.imageFilter1?.provider0 = self.imageProvider!
+            }
         }
     }
     
@@ -153,15 +178,33 @@ class ImageFilterViewController: UIViewController {
                 return
             }
             
-            let filter: GImageFilter? = welf.imageFilter1
-            filter?.setValue(saturation)
-            
-            let texture = filter?.texture
-            GZLogFunc("mipmap : \(texture?.mipmapLevelCount)")
-            let image = filter?.image
-            
-            DispatchQueue.main.async {[weak self] in
-                self?.imageView.image = image
+            if case GImageFilterType.binaryImageKernel = welf.filterType1 {
+                let filter0 = welf.imageFilter1?.provider0 as! GImageFilter
+                filter0.setValue(saturation)
+                
+                let filter1 = welf.imageFilter1?.provider1 as! GImageFilter
+                filter1.setValue(saturation + 1)
+
+                let filter: GImageFilter? = welf.imageFilter1
+                let texture = filter?.texture
+                GZLogFunc("mipmap : \(texture?.mipmapLevelCount)")
+                let image = filter?.image
+                
+                DispatchQueue.main.async {[weak self] in
+                    self?.imageView.image = image
+                }
+            }
+            else {
+                let filter: GImageFilter? = welf.imageFilter1
+                filter?.setValue(saturation)
+                
+                let texture = filter?.texture
+                GZLogFunc("mipmap : \(texture?.mipmapLevelCount)")
+                let image = filter?.image
+                
+                DispatchQueue.main.async {[weak self] in
+                    self?.imageView.image = image
+                }
             }
         }
     }

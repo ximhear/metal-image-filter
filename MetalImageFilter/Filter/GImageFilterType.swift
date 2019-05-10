@@ -19,7 +19,8 @@ enum GImageFilterType {
     case normalMap
     case invert
     case mpsUnaryImageKernel(type: GMPSUnaryImageFilterType)
-    
+    case binaryImageKernel(type: BinaryImageFilterType)
+
     var name: String {
         switch self {
         case .gaussianBlur2D:
@@ -41,6 +42,8 @@ enum GImageFilterType {
         case .invert:
             return "Invert"
         case .mpsUnaryImageKernel(let type):
+            return type.name
+        case .binaryImageKernel(let type):
             return type.name
         }
     }
@@ -68,6 +71,8 @@ enum GImageFilterType {
             return GImageFilter(functionName: "invert", context: context, filterType: self)
         case .mpsUnaryImageKernel(let type):
             return GMPSUnaryImageFilter(type: type, context: context, filterType: self)
+        case .binaryImageKernel(let type):
+            return BinaryImageFilter(type: type, functionName: "oneStepLaplacianPyramid", context: context, filterType: self)
         }
     }
     
@@ -75,6 +80,8 @@ enum GImageFilterType {
         
         switch self {
         case .mpsUnaryImageKernel(let type):
+            return type.inputMipmapped
+        case .binaryImageKernel(let type):
             return type.inputMipmapped
         default:
             return false
@@ -86,6 +93,8 @@ enum GImageFilterType {
         switch self {
         case .mpsUnaryImageKernel(let type):
             return type.outputMipmapped
+        case .binaryImageKernel(let type):
+            return type.outputMipmapped
         default:
             return false
         }
@@ -96,6 +105,8 @@ enum GImageFilterType {
         switch self {
         case .mpsUnaryImageKernel(let type):
             return type.inPlaceTexture
+        case .binaryImageKernel(let type):
+            return type.inPlaceTexture
         default:
             return false
         }
@@ -105,6 +116,8 @@ enum GImageFilterType {
         
         switch self {
         case .mpsUnaryImageKernel(let type):
+            return type.output2Required
+        case .binaryImageKernel(let type):
             return type.output2Required
         default:
             return false
